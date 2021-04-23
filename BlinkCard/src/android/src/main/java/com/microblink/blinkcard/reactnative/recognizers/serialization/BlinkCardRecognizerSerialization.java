@@ -14,6 +14,9 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
         if (jsonMap.hasKey("allowBlurFilter")) {
             recognizer.setAllowBlurFilter(jsonMap.getBoolean("allowBlurFilter"));
         }
+        if (jsonMap.hasKey("anonymizationSettings")) {
+            recognizer.setAnonymizationSettings(BlinkCardSerializationUtils.deserializeBlinkCardAnonymizationSettings(jsonMap.getMap("anonymizationSettings")));
+        }
         if (jsonMap.hasKey("extractCvv")) {
             recognizer.setExtractCvv(jsonMap.getBoolean("extractCvv"));
         }
