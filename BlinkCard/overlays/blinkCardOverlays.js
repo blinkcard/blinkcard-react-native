@@ -7,13 +7,13 @@ import { OverlaySettings } from '../overlaySettings'
 export class BlinkCardOverlaySettings extends OverlaySettings {
     constructor() {
         super('BlinkCardOverlaySettings');
-        /** 
+        /**
          * String: user instructions that are shown above camera preview while the first side of the
          * document is being scanned.
          * If null, default value will be used.
          */
         this.firstSideInstructions = null;
-        /** 
+        /**
          * String: user instructions that are shown above camera preview while the second side of the
          * document is being scanned.
          * If null, default value will be used.
