@@ -8,7 +8,7 @@
 
 #pragma once
 
-#import "MBOverlayViewControllerDelegate.h"
+#import "MBCOverlayViewControllerDelegate.h"
 
 #import <BlinkCard/BlinkCard.h>
 #import <Foundation/Foundation.h>

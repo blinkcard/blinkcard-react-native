@@ -13,13 +13,14 @@ npx react-native init $appName --version="0.64.0" || exit 1
 # enter into demo project folder
 pushd $appName || exit 1
 
-IS_LOCAL_BUILD=false || exit 1
+IS_LOCAL_BUILD=true || exit 1
 if [ "$IS_LOCAL_BUILD" = true ]; then
   echo "Using blinkcard-react-native from this repo instead from NPM"
   # use directly source code from this repo instead of npm package
   # from RN 0.57 symlink does not work any more
   npm pack $blink_card_plugin_path
   npm install --save microblink-blinkcard-react-native-2.4.0.tgz
+  npm install --save blinkid-react-native
   #pushd node_modules
     #ln -s $blinkcard_plugin_path blinkcard-react-native
   #popd
