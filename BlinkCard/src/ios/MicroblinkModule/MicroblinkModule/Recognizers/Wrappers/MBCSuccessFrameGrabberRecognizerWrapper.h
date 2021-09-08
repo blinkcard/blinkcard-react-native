@@ -6,7 +6,7 @@
 //  Copyright © 2018 Jura Skrlec. All rights reserved.
 //
 
-#import "MBRecognizerWrapper.h"
+#import "MBCRecognizerWrapper.h"
 #import <BlinkCard/BlinkCard.h>
 
 @interface MBCSuccessFrameGrabberRecognizerCreator : NSObject<MBCRecognizerCreator>

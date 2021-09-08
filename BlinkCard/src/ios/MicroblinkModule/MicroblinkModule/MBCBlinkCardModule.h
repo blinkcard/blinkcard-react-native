@@ -8,7 +8,7 @@
 
 #import <React/RCTBridgeModule.h>
 
-@interface MBCMicroblinkModule : NSObject<RCTBridgeModule>
+@interface MBCBlinkCardModule : NSObject<RCTBridgeModule>
 
 
 @end

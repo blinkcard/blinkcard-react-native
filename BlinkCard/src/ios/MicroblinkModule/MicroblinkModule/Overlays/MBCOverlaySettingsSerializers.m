@@ -5,10 +5,10 @@
 //  Created by DoDo on 04/06/2018.
 //
 
-#import "MBOverlaySettingsSerializers.h"
+#import "MBCOverlaySettingsSerializers.h"
 
-#import "MBOverlayVCCreator.h"
-#import "MBBlinkCardOverlaySettingsSerialization.h"
+#import "MBCOverlayVCCreator.h"
+#import "MBCBlinkCardOverlaySettingsSerialization.h"
 
 @interface MBCOverlaySettingsSerializers ()
 
