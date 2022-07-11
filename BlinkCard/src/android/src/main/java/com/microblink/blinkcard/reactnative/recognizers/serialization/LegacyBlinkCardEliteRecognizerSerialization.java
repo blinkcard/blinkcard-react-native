@@ -41,9 +41,6 @@ public final class LegacyBlinkCardEliteRecognizerSerialization implements Recogn
         if (jsonMap.hasKey("returnFullDocumentImage")) {
             recognizer.setReturnFullDocumentImage(jsonMap.getBoolean("returnFullDocumentImage"));
         }
-        if (jsonMap.hasKey("signResult")) {
-            recognizer.setSignResult(jsonMap.getBoolean("signResult"));
-        }
         return recognizer;
     }
 
@@ -54,8 +51,6 @@ public final class LegacyBlinkCardEliteRecognizerSerialization implements Recogn
         SerializationUtils.addCommonRecognizerResultData(jsonResult, result);
         jsonResult.putString("cardNumber", result.getCardNumber());
         jsonResult.putString("cvv", result.getCvv());
-        jsonResult.putString("digitalSignature", SerializationUtils.encodeByteArrayToBase64(result.getDigitalSignature()));
-        jsonResult.putInt("digitalSignatureVersion", (int)result.getDigitalSignatureVersion());
         jsonResult.putInt("documentDataMatch", SerializationUtils.serializeEnum(result.getDocumentDataMatch()));
         jsonResult.putString("fullDocumentBackImage", SerializationUtils.encodeImageBase64(result.getFullDocumentBackImage()));
         jsonResult.putString("fullDocumentFrontImage", SerializationUtils.encodeImageBase64(result.getFullDocumentFrontImage()));
