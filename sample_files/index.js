@@ -20,7 +20,7 @@ const licenseKey = Platform.select({
     // iOS license key for applicationID: com.microblink.sample
     ios: 'sRwAAAEVY29tLm1pY3JvYmxpbmsuc2FtcGxl1BIcP6dpSuS/37rVPjGtkIpFWh9/i3ghC0iaOPslszZPC2/82MLvU9ia31gS8k6NGgkAntvp+hm/nTwnB32EMvVObWBr/9WtHfJTce+hXWSLXeM9mlruZmqynXj1eeK/jcXOkn6ReHi9gmiHisBwA1xlPAREe7iR9Otj/atLVZ2pxY2suYkNhpVe60QwGdZf30dcM67oq5DhDSELsBj0Fd9U7uJk6AZs/Ks8KcDOjw==',
     // android license key for applicationID: com.microblink.sample
-    android: 'sRwAAAAVY29tLm1pY3JvYmxpbmsuc2FtcGxlU9kJdb5ZkGlTu623Pixnw9vZ9zTZHftf1iGlXXalEYgUQdYI3vvCN6I08Ce3k40ivIYeIbScNtA1CSsZp4OZg36O6FZ3K0jRMqGXY6LNEiRPq5PGZ/y0cU63Ad8+MudnVCFDZwHM9W2CQSZAGTIPJyTjLTXdO+0aFcjPoULTXJOn4s+QugoDXLhnKYi7CqgkyDSL6KZluijeRZDaSP0qTjchmF84xfiNxPgGaJSNlQ=='
+    android: 'sRwAAAAVY29tLm1pY3JvYmxpbmsuc2FtcGxlU9kJdb5ZkGlTu623PARDZ2y3bw/2FMh5N8Ns88iVHtrPi9+/nWa1Jfjuaio9sNqvjMT6OtkQ6mJBjE58IcmwG5+mm6WUi+Jy6MYfmGIzIoMFQvkqfYUo2Q/WFqsbYjo57kuic4Q5BWQbqavo1wF7llPipW1ABXqrTLnoewhyHJrJCMyXSOvK6ensoeNbd2iJtgi2L6myHxmekGcmW2ZnKr9otoMUy0YqZ5AjqMxjDw=='
 })
 
 

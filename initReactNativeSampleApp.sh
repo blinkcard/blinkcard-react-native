@@ -19,7 +19,7 @@ if [ "$IS_LOCAL_BUILD" = true ]; then
   # use directly source code from this repo instead of npm package
   # from RN 0.57 symlink does not work any more
   npm pack $blink_card_plugin_path
-  npm install --save microblink-blinkcard-react-native-2.4.1.tgz
+  npm install --save microblink-blinkcard-react-native-2.6.0.tgz
   #pushd node_modules
     #ln -s $blinkcard_plugin_path blinkcard-react-native
   #popd
@@ -89,6 +89,11 @@ cp ../sample_files/index.js ./
 # use the same index.js file for Android and iOS
 cp index.js index.ios.js
 cp index.js index.android.js
+
+#update compile and target sdk versions to 31, add android:exported="true" to manifest
+sed -i '' 's#compileSdkVersion = 29#compileSdkVersion = 31#g' ./android/build.gradle
+sed -i '' 's#targetSdkVersion = 29#targetSdkVersion = 31#g' ./android/build.gradle
+sed -i '' 's#android:name=".MainActivity"#android:name=".MainActivity" android:exported="true"#g' ./android/app/src/main/AndroidManifest.xml
 
 # return to root folder
 popd

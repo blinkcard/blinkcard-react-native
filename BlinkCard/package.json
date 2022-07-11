@@ -1,6 +1,6 @@
 {
   "name": "@microblink/blinkcard-react-native",
-  "version": "2.4.1",
+  "version": "2.6.0",
   "description": "AI-driven credit card scanning for cross-platform apps built with ReactNative.",
   "main": "index.js",
   "repository": {
