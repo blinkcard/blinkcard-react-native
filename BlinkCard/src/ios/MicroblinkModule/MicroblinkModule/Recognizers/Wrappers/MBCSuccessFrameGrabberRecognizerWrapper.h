@@ -1,5 +1,5 @@
 //
-//  MBSuccessFrameGrabberRecognizerWrapper.h
+//  MBCSuccessFrameGrabberRecognizerWrapper.h
 //  MicroblinkModule
 //
 //  Created by DoDo on 15/06/2018.

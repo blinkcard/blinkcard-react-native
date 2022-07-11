@@ -1,5 +1,5 @@
 //
-//  MBRecognizer+MBRecognizerWrapper_m.h
+//  MBCRecognizer+MBCRecognizerWrapper_m.h
 //  BlinkIdDevDemo
 //
 //  Created by DoDo on 01/06/2018.

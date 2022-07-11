@@ -1,5 +1,5 @@
 //
-//  MBBlinkCardOverlaySettingsSerialization.m
+//  MBCBlinkCardOverlaySettingsSerialization.m
 //  BlinkIdDevDemo
 //
 //  Created by DoDo on 04/06/2018.
