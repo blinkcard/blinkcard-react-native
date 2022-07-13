@@ -1,5 +1,5 @@
 //
-//  MBOverlayVCCreator.h
+//  MBCOverlayVCCreator.h
 //  MicroblinkModule
 //
 //  Created by DoDo on 08/06/2018.

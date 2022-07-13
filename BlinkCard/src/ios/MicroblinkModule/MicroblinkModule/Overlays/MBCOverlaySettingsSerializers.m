@@ -1,5 +1,5 @@
 //
-//  MBOverlaySettingsSerializers.m
+//  MBCOverlaySettingsSerializers.m
 //  BlinkIdDevDemo
 //
 //  Created by DoDo on 04/06/2018.

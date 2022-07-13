@@ -41,9 +41,6 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
         if (jsonMap.hasKey("returnFullDocumentImage")) {
             recognizer.setReturnFullDocumentImage(jsonMap.getBoolean("returnFullDocumentImage"));
         }
-        if (jsonMap.hasKey("signResult")) {
-            recognizer.setSignResult(jsonMap.getBoolean("signResult"));
-        }
         return recognizer;
     }
 
@@ -56,8 +53,6 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
         jsonResult.putString("cardNumberPrefix", result.getCardNumberPrefix());
         jsonResult.putBoolean("cardNumberValid", result.isCardNumberValid());
         jsonResult.putString("cvv", result.getCvv());
-        jsonResult.putString("digitalSignature", SerializationUtils.encodeByteArrayToBase64(result.getDigitalSignature()));
-        jsonResult.putInt("digitalSignatureVersion", (int)result.getDigitalSignatureVersion());
         jsonResult.putMap("expiryDate", SerializationUtils.serializeDate(result.getExpiryDate()));
         jsonResult.putBoolean("firstSideBlurred", result.isFirstSideBlurred());
         jsonResult.putString("firstSideFullDocumentImage", SerializationUtils.encodeImageBase64(result.getFirstSideFullDocumentImage()));
