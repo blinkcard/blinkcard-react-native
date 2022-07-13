@@ -9,10 +9,10 @@ Pod::Spec.new do |s|
   s.authors      = package['author']
   s.homepage     = package['homepage']
   s.license      = package['license']
-  s.platform     = :ios, "9.0"
+  s.platform     = :ios, "12.0"
   s.source       = { :git => "https://github.com/BlinkCard/blinkcard-react-native.git", :tag => "v#{s.version}" }
   s.source_files  = "src/ios", "src/ios/**/*.{h,m}"
   s.dependency 'React'
-  s.dependency 'MBBlinkCard', '~> 2.4.0'
+  s.dependency 'MBBlinkCard', '~> 2.6.0'
   s.frameworks = 'UIKit'
 end

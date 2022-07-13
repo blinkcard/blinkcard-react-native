@@ -57,6 +57,9 @@ pushd ios || exit 1
 # removing flipper because it causes errors
 sed -i '' 's/use_flipper!()/# use_flipper!()/' Podfile
 
+#Force minimal iOS version
+sed -i '' "s/platform :ios, '10.0'/platform :ios, '12.0'/" Podfile
+
 # install pod
 pod install
 
