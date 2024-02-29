@@ -60,14 +60,14 @@ sed -i '' "s/platform :ios, min_ios_version_supported/platform :ios, '13.0'/" Po
 # install pod
 pod install
 
-if [ "$IS_LOCAL_BUILD" = true ]; then
-  echo "Replace pod with custom dev version of BlinkCard framework"
-  # replace pod with custom dev version of BlinkCard framework
-  pushd Pods/MBBlinkCard || exit 1
-  rm -rf BlinkCard.xcframework
-  cp -r ~/Downloads/blinkcard-ios/BlinkCard.xcframework ./
-  popd
-fi
+#if [ "$IS_LOCAL_BUILD" = true ]; then
+#  echo "Replace pod with custom dev version of BlinkCard framework"
+#  # replace pod with custom dev version of BlinkCard framework
+#  pushd Pods/MBBlinkCard || exit 1
+#  rm -rf BlinkCard.xcframework
+#  cp -r ~/Downloads/blinkcard-ios/BlinkCard.xcframework ./
+#  popd
+#fi
 
 # change bundle id
 sed -i '' s/\$\(PRODUCT_BUNDLE_IDENTIFIER\)/com.microblink.sample/g $appName/Info.plist
