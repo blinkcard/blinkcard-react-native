@@ -19,8 +19,6 @@ public enum RecognizerSerializers {
     RecognizerSerializers() {
         registerMapping(new SuccessFrameGrabberRecognizerSerialization());
         registerMapping(new BlinkCardRecognizerSerialization());
-        registerMapping(new LegacyBlinkCardEliteRecognizerSerialization());
-        registerMapping(new LegacyBlinkCardRecognizerSerialization());
     }
 
     private void registerMapping( RecognizerSerialization recognizerSerialization ) {

@@ -11,9 +11,10 @@ import com.facebook.react.bridge.WritableNativeMap;
 import com.microblink.blinkcard.entities.recognizers.Recognizer;
 import com.microblink.blinkcard.geometry.Point;
 import com.microblink.blinkcard.geometry.Quadrilateral;
+import com.microblink.blinkcard.geometry.Rectangle;
 import com.microblink.blinkcard.image.Image;
+import com.microblink.blinkcard.results.date.SimpleDate;
 import com.microblink.blinkcard.results.date.Date;
-import com.microblink.blinkcard.results.date.DateResult;
 import com.microblink.blinkcard.entities.recognizers.blinkid.imageoptions.extension.ImageExtensionFactors;
 
 import java.io.ByteArrayOutputStream;
@@ -26,7 +27,7 @@ public abstract class SerializationUtils {
         jsonObject.putInt("resultState", serializeEnum(result.getResultState()));
     }
 
-    public static WritableMap serializeDate(Date date) {
+    public static WritableMap serializeSimpleDate(SimpleDate date) {
         if (date != null ) {
             WritableMap jsonDate = new WritableNativeMap();
             jsonDate.putInt("day", date.getDay());
@@ -38,16 +39,16 @@ public abstract class SerializationUtils {
         }
     }
 
-    public static WritableMap serializeDate(DateResult dateResult) {
+    public static WritableMap serializeDate(Date dateResult) {
         if (dateResult == null) {
             return null;
         } else {
-            return serializeDate(dateResult.getDate());
+            return serializeSimpleDate(dateResult.getDate());
         }
     }
 
     public static int serializeEnum(Enum e) {
-        return e.ordinal() + 1;
+        return e.ordinal();
     }
 
     public static WritableArray serializeStringArray(String[] strings) {
@@ -99,6 +100,18 @@ public abstract class SerializationUtils {
         jsonQuad.putMap("lowerLeft", serializePoint(quad.getLowerLeft()));
         jsonQuad.putMap("lowerRight", serializePoint(quad.getLowerRight()));
         return jsonQuad;
+    }
+
+    public static WritableMap serializeRectangle(Rectangle rectangle) {
+        WritableMap jsonRectangle = new WritableNativeMap();
+
+        if (rectangle != null) {
+            jsonRectangle.putDouble("x", rectangle.getX());
+            jsonRectangle.putDouble("y", rectangle.getY());
+            jsonRectangle.putDouble("height", rectangle.getHeight());
+            jsonRectangle.putDouble("width", rectangle.getWidth());
+        }
+        return jsonRectangle;
     }
 
     public static ImageExtensionFactors deserializeExtensionFactors(ReadableMap jsonExtensionFactors) {

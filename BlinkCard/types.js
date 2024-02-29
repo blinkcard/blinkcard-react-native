@@ -9,6 +9,10 @@ export class Date {
         this.month = nativeDate.month;
         /** year */
         this.year = nativeDate.year;
+        /** original date string */
+        this.originalDateStringResult = nativeDate.originalDateStringResult;
+        /** isFilledByDomainKnowledge */
+        this.isFilledByDomainKnowledge = nativeDate.isFilledByDomainKnowledge;
     }
 }
 
@@ -45,98 +49,36 @@ export class Quadrilateral {
 
 
 /**
- * Supported Legacy BlinkCard card issuer values.
- */
-export const LegacyCardIssuer = Object.freeze(
-    {
-        /** Unidentified Card */
-        Other: 1,
-        /** The American Express Company Card */
-        AmericanExpress: 2,
-        /** The Bank of Montreal ABM Card */
-        BmoAbm: 3,
-        /** China T-Union Transportation Card */
-        ChinaTUnion: 4,
-        /** China UnionPay Card */
-        ChinaUnionPay: 5,
-        /** Canadian Imperial Bank of Commerce Advantage Debit Card */
-        CibcAdvantageDebit: 6,
-        /** CISS Card */
-        Ciss: 7,
-        /** Diners Club International Card */
-        DinersClubInternational: 8,
-        /** Diners Club United States & Canada Card */
-        DinersClubUsCanada: 9,
-        /** Discover Card */
-        DiscoverCard: 10,
-        /** HSBC Bank Canada Card */
-        Hsbc: 11,
-        /** RuPay Card */
-        RuPay: 12,
-        /** InterPayment Card */
-        InterPayment: 13,
-        /** InstaPayment Card */
-        InstaPayment: 14,
-        /** The JCB Company Card */
-        Jcb: 15,
-        /** Laser Debit Card (deprecated) */
-        Laser: 16,
-        /** Maestro Debit Card */
-        Maestro: 17,
-        /** Dankort Card */
-        Dankort: 18,
-        /** MIR Card */
-        Mir: 19,
-        /** MasterCard Inc. Card */
-        MasterCard: 20,
-        /** The Royal Bank of Canada Client Card */
-        RbcClient: 21,
-        /** ScotiaBank Scotia Card */
-        ScotiaBank: 22,
-        /** TD Canada Trust Access Card */
-        TdCtAccess: 23,
-        /** Troy Card */
-        Troy: 24,
-        /** Visa Inc. Card */
-        Visa: 25,
-        /** Universal Air Travel Plan Inc. Card */
-        Uatp: 26,
-        /** Interswitch Verve Card */
-        Verve: 27
-    }
-);
-
-/**
  * Supported BlinkCard card issuer values.
  */
 export const Issuer = Object.freeze(
     {
         /* Unidentified Card */
-        Other: 1,
+        Other: 0,
         /* The American Express Company Card */
-        AmericanExpress: 2,
+        AmericanExpress: 1,
         /* China UnionPay Card */
-        ChinaUnionPay: 3,
+        ChinaUnionPay: 2,
         /* Diners Club International Card */
-        Diners: 4,
+        Diners: 3,
         /* Discover Card */
-        DiscoverCard: 5,
+        DiscoverCard: 4,
         /* Elo card association */
-        Elo: 6,
+        Elo: 5,
         /* The JCB Company Card */
-        Jcb: 7,
+        Jcb: 6,
         /* Maestro Debit Card */
-        Maestro: 8,
+        Maestro: 7,
         /* Mastercard Inc. Card */
-        Mastercard: 9,
+        Mastercard: 8,
         /* RuPay */
-        RuPay: 10,
+        RuPay: 9,
         /* Interswitch Verve Card */
-        Verve: 11,
+        Verve: 10,
         /* Visa Inc. Card */
-        Visa: 12,
+        Visa: 11,
         /* VPay */
-        VPay: 13
+        VPay: 12
     }
 );
 
@@ -146,21 +88,65 @@ export const Issuer = Object.freeze(
 export const BlinkCardProcessingStatus = Object.freeze(
     {
         /** Recognition was successful. */
-        Success: 1,
+        Success: 0,
         /** Detection of the document failed. */
-        DetectionFailed: 2,
+        DetectionFailed: 1,
         /** Preprocessing of the input image has failed. */
-        ImagePreprocessingFailed: 3,
+        ImagePreprocessingFailed: 2,
         /** Recognizer has inconsistent results. */
-        StabilityTestFailed: 4,
+        StabilityTestFailed: 3,
         /** Wrong side of the document has been scanned. */
-        ScanningWrongSide: 5,
+        ScanningWrongSide: 4,
         /** Identification of the fields present on the document has failed. */
-        FieldIdentificationFailed: 6,
+        FieldIdentificationFailed: 5,
         /** Failed to return a requested image. */
-        ImageReturnFailed: 7,
+        ImageReturnFailed: 6,
         /** Payment card currently not supported by the recognizer. */
-        UnsupportedCard: 8
+        UnsupportedCard: 7
+    }
+);
+
+/**
+ *Enumerates the possible match levels indicating the strictness of a check result. Higher is stricter.
+ */
+export const BlinkCardMatchLevel = Object.freeze(
+    {
+        /** Match level is disabled */
+        Disabled: 0,
+        /** Match level one. */
+        Level1: 1,
+        /** Match level two */
+        Level2: 2,
+        /** Match level three */        
+        Level3: 3,
+        /** Match level four */
+        Level4: 4,
+        /** Match level five */
+        Level5: 5,
+        /** Match level six */
+        Level6: 6,
+        /** Match level seven */
+        Level7: 7,
+        /** Match level eight */
+        Level8: 8,
+        /** Match level nine */
+        Level9: 9,
+        /** Match level ten. Most strict match level */
+        Level10: 10
+    }
+);
+
+/**
+ * Enumerates the possible results of BlinkCard's document liveness checks.
+ */
+export const BlinkCardCheckResult = Object.freeze(
+    {
+        /** Indicates that the check was not performed. */
+        NotPerformed: 0,
+        /** Indicates that the document passed the check successfully. */
+        Pass: 1,
+        /** Indicates that the document failed the check. */
+        Fail: 2,
     }
 );
 
@@ -170,16 +156,16 @@ export const BlinkCardProcessingStatus = Object.freeze(
 export const BlinkCardAnonymizationMode = Object.freeze(
     {
         /** No anonymization is performed in this mode. */
-        None: 1,
+        None: 0,
 
         /** Sensitive data in the document image is anonymized with black boxes covering selected sensitive data. Data returned in result fields is not changed. */
-        ImageOnly: 2,
+        ImageOnly: 1,
 
         /** Document image is not changed. Data returned in result fields is redacted. */
-        ResultFieldsOnly: 3,
+        ResultFieldsOnly: 2,
 
         /** Sensitive data in the image is anonymized with black boxes covering selected sensitive data. Data returned in result fields is redacted. */
-        FullResult: 4
+        FullResult: 3
     }
 );
 
@@ -234,13 +220,13 @@ export class ImageExtensionFactors {
 };
 
 /** Result of the data matching algorithm for scanned parts/sides of the document. */
-export const DataMatchResult = Object.freeze(
+export const DataMatchState = Object.freeze(
     {
         /** Data matching has not been performed. */
-        NotPerformed : 1,
+        NotPerformed : 0,
         /** Data does not match. */
-        Failed : 2,
+        Failed : 1,
         /** Data match. */
-        Success : 3
+        Success : 2
     }
 );
