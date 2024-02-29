@@ -56,8 +56,8 @@ public abstract class BlinkCardSerializationUtils {
             return jsonDocumentLivenessCheckResult;
         }
 
-    public static MatchLevel deserializeMatchLevel(ReadableMap json, String name) {
-            return MatchLevel.values()[json.getInt(name)];
+    public static MatchLevel deserializeMatchLevel(int value) {
+            return MatchLevel.values()[value];
      }
 
 }
