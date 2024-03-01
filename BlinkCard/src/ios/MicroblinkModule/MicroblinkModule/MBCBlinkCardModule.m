@@ -56,7 +56,7 @@ RCT_EXPORT_MODULE(BlinkCardIos);
     NSMutableDictionary *mutableDictionary = [[NSMutableDictionary alloc] initWithDictionary:dictionary];
     for (NSString* key in dictionary.allKeys) {
         if (mutableDictionary[key] == [NSNull null]) {
-            mutableDictionary[key] = nil;
+            [mutableDictionary removeObjectForKey:key];
         }
     }
     return mutableDictionary;
@@ -85,6 +85,14 @@ RCT_REMAP_METHOD(scanWithCamera, scanWithCamera:(NSDictionary *)jsonOverlaySetti
     else {
         [[MBCMicroblinkSDK sharedInstance] setLicenseKey:iosLicense errorCallback:^(MBCLicenseError licenseError) {
         }];
+    }
+    
+    if (jsonOverlaySettings[@"language"] != nil) {
+        if (jsonOverlaySettings[@"country"] != nil && ![jsonOverlaySettings[@"country"]  isEqual: @""]) {
+            MBCMicroblinkApp.sharedInstance.language = [[(NSString *)jsonOverlaySettings[@"language"] stringByAppendingString:@"-" ] stringByAppendingString:(NSString *)jsonOverlaySettings[@"country"]];
+        } else {
+            MBCMicroblinkApp.sharedInstance.language = jsonOverlaySettings[@"language"];
+        }
     }
 
     self.recognizerCollection = [[MBCRecognizerSerializers sharedInstance] deserializeRecognizerCollection:jsonRecognizerCollection];

@@ -19,9 +19,9 @@ import com.microblink.blinkcard.entities.recognizers.RecognizerBundle;
 import com.microblink.blinkcard.intent.IntentDataTransferMode;
 import com.microblink.blinkcard.reactnative.overlays.OverlaySettingsSerializers;
 import com.microblink.blinkcard.uisettings.ActivityRunner;
+import com.microblink.blinkcard.locale.LanguageUtils;
 
 import com.microblink.blinkcard.uisettings.UISettings;
-import com.microblink.blinkcard.locale.LanguageUtils;
 import com.microblink.blinkcard.reactnative.recognizers.RecognizerSerializers;
 
 /**
@@ -61,17 +61,13 @@ public class MicroblinkModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void scanWithCamera(ReadableMap jsonOverlaySettings, ReadableMap jsonRecognizerCollection, ReadableMap license, Promise promise) {
         prepareScanning(license, promise);
-
+        try {
+            LanguageUtils.setLanguageAndCountry(jsonOverlaySettings.getString("language"),
+                    jsonOverlaySettings.getString("country"),
+                    getCurrentActivity());
+        } catch (Exception e) {}
         mRecognizerBundle = RecognizerSerializers.INSTANCE.deserializeRecognizerCollection(jsonRecognizerCollection);
         UISettings overlaySettings = OverlaySettingsSerializers.INSTANCE.getOverlaySettings(getReactApplicationContext(), jsonOverlaySettings, mRecognizerBundle);
-        if (jsonOverlaySettings.hasKey("language")) {
-            String language = jsonOverlaySettings.getString("language");
-            if (language != null) {
-                String country = jsonOverlaySettings.hasKey("country") ? jsonOverlaySettings.getString("country") : null;
-                LanguageUtils.setLanguageAndCountry(language, country, getCurrentActivity());
-            }
-        }
-
         ActivityRunner.startActivityForResult(getCurrentActivity(), REQUEST_CODE, overlaySettings);
     }
 

@@ -14,6 +14,9 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
         if (jsonMap.hasKey("allowBlurFilter")) {
             recognizer.setAllowBlurFilter(jsonMap.getBoolean("allowBlurFilter"));
         }
+        if (jsonMap.hasKey("allowInvalidCardNumber")) {
+            recognizer.setAllowInvalidCardNumber(jsonMap.getBoolean("allowInvalidCardNumber"));
+        }
         if (jsonMap.hasKey("anonymizationSettings")) {
             recognizer.setAnonymizationSettings(BlinkCardSerializationUtils.deserializeBlinkCardAnonymizationSettings(jsonMap.getMap("anonymizationSettings")));
         }
@@ -35,11 +38,23 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
         if (jsonMap.hasKey("fullDocumentImageExtensionFactors")) {
             recognizer.setFullDocumentImageExtensionFactors(SerializationUtils.deserializeExtensionFactors(jsonMap.getMap("fullDocumentImageExtensionFactors")));
         }
+        if (jsonMap.hasKey("handDocumentOverlapThreshold")) {
+            recognizer.setHandDocumentOverlapThreshold((float)jsonMap.getDouble("handDocumentOverlapThreshold"));
+        }
+        if (jsonMap.hasKey("handScaleThreshold")) {
+            recognizer.setHandScaleThreshold((float)jsonMap.getDouble("handScaleThreshold"));
+        }
         if (jsonMap.hasKey("paddingEdge")) {
             recognizer.setPaddingEdge((float)jsonMap.getDouble("paddingEdge"));
         }
+        if (jsonMap.hasKey("photocopyAnalysisMatchLevel")) {
+            recognizer.setPhotocopyAnalysisMatchLevel(BlinkCardSerializationUtils.deserializeMatchLevel(jsonMap.getInt("photocopyAnalysisMatchLevel")));
+        }
         if (jsonMap.hasKey("returnFullDocumentImage")) {
             recognizer.setReturnFullDocumentImage(jsonMap.getBoolean("returnFullDocumentImage"));
+        }
+        if (jsonMap.hasKey("screenAnalysisMatchLevel")) {
+            recognizer.setScreenAnalysisMatchLevel(BlinkCardSerializationUtils.deserializeMatchLevel(jsonMap.getInt("screenAnalysisMatchLevel")));
         }
         return recognizer;
     }
@@ -53,7 +68,9 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
         jsonResult.putString("cardNumberPrefix", result.getCardNumberPrefix());
         jsonResult.putBoolean("cardNumberValid", result.isCardNumberValid());
         jsonResult.putString("cvv", result.getCvv());
+        jsonResult.putMap("documentLivenessCheck", BlinkCardSerializationUtils.serializeDocumentLivenessCheckResult(result.getDocumentLivenessCheck()));
         jsonResult.putMap("expiryDate", SerializationUtils.serializeDate(result.getExpiryDate()));
+        jsonResult.putBoolean("firstSideAnonymized", result.isFirstSideAnonymized());
         jsonResult.putBoolean("firstSideBlurred", result.isFirstSideBlurred());
         jsonResult.putString("firstSideFullDocumentImage", SerializationUtils.encodeImageBase64(result.getFirstSideFullDocumentImage()));
         jsonResult.putString("iban", result.getIban());
@@ -61,6 +78,7 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
         jsonResult.putString("owner", result.getOwner());
         jsonResult.putInt("processingStatus", SerializationUtils.serializeEnum(result.getProcessingStatus()));
         jsonResult.putBoolean("scanningFirstSideDone", result.isScanningFirstSideDone());
+        jsonResult.putBoolean("secondSideAnonymized", result.isSecondSideAnonymized());
         jsonResult.putBoolean("secondSideBlurred", result.isSecondSideBlurred());
         jsonResult.putString("secondSideFullDocumentImage", SerializationUtils.encodeImageBase64(result.getSecondSideFullDocumentImage()));
         return jsonResult;

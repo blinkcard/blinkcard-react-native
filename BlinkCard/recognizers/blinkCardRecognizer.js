@@ -5,12 +5,13 @@ import {
     Quadrilateral,
     
     
-    LegacyCardIssuer,
     Issuer,
     BlinkCardProcessingStatus,
     BlinkCardAnonymizationMode,
     CardNumberAnonymizationSettings,
     BlinkCardAnonymizationSettings,
+    BlinkCardMatchLevel,
+    BlinkCardCheckResult,
     ImageExtensionFactors,
     DataMatchResult,
 } from '../types'
@@ -43,12 +44,22 @@ export class BlinkCardRecognizerResult extends RecognizerResult {
         this.cvv = nativeResult.cvv;
         
         /**
+         * Document liveness check (screen, photocopy, hand presence) which can pass or fail.
+         */
+        this.documentLivenessCheck = nativeResult.documentLivenessCheck;
+        
+        /**
          * The payment card's expiry date.
          */
         this.expiryDate = nativeResult.expiryDate != null ? new Date(nativeResult.expiryDate) : null;
         
         /**
-         * Wheater the first scanned side is blurred.
+         * Whether the first scanned side is anonymized.
+         */
+        this.firstSideAnonymized = nativeResult.firstSideAnonymized;
+        
+        /**
+         * Whether the first scanned side is blurred.
          */
         this.firstSideBlurred = nativeResult.firstSideBlurred;
         
@@ -84,7 +95,12 @@ export class BlinkCardRecognizerResult extends RecognizerResult {
         this.scanningFirstSideDone = nativeResult.scanningFirstSideDone;
         
         /**
-         * Wheater the second scanned side is blurred.
+         * Whether the second scanned side is anonymized.
+         */
+        this.secondSideAnonymized = nativeResult.secondSideAnonymized;
+        
+        /**
+         * Whether the second scanned side is blurred.
          */
         this.secondSideBlurred = nativeResult.secondSideBlurred;
         
@@ -109,6 +125,13 @@ export class BlinkCardRecognizer extends Recognizer {
          * 
          */
         this.allowBlurFilter = true;
+        
+        /**
+         * Whether invalid card number is accepted.
+         * 
+         * 
+         */
+        this.allowInvalidCardNumber = false;
         
         /**
          * Defines whether sensitive data should be redacted from the result.
@@ -162,6 +185,20 @@ export class BlinkCardRecognizer extends Recognizer {
         this.fullDocumentImageExtensionFactors = new ImageExtensionFactors();
         
         /**
+         * This parameter is used to adjust heuristics that eliminate cases when the hand is present.
+         * 
+         * 
+         */
+        this.handDocumentOverlapThreshold = 0.05;
+        
+        /**
+         * Hand scale is calculated as a ratio between area of hand mask and document mask.
+         * 
+         * 
+         */
+        this.handScaleThreshold = 0.15;
+        
+        /**
          * Pading is a minimum distance from the edge of the frame and is defined as a percentage of the frame width. Default value is 0.0f and in that case
          * padding edge and image edge are the same.
          * Recommended value is 0.02f.
@@ -171,11 +208,25 @@ export class BlinkCardRecognizer extends Recognizer {
         this.paddingEdge = 0.0;
         
         /**
+         * Photocopy analysis match level - higher if stricter.
+         * 
+         * 
+         */
+        this.photocopyAnalysisMatchLevel = BlinkCardMatchLevel.Level5;
+        
+        /**
          * Sets whether full document image of ID card should be extracted.
          * 
          * 
          */
         this.returnFullDocumentImage = false;
+        
+        /**
+         * Screen analysis match level - higher if stricter.
+         * 
+         * 
+         */
+        this.screenAnalysisMatchLevel = BlinkCardMatchLevel.Level5;
         
         this.createResultFromNative = function (nativeResult) { return new BlinkCardRecognizerResult(nativeResult); }
     }
