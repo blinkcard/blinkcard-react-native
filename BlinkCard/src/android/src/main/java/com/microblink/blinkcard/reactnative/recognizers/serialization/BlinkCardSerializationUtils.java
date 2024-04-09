@@ -59,5 +59,4 @@ public abstract class BlinkCardSerializationUtils {
     public static MatchLevel deserializeMatchLevel(int value) {
             return MatchLevel.values()[value];
      }
-
 }
