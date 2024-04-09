@@ -5,6 +5,8 @@
 
 import React, { Component } from 'react';
 import * as BlinkCardReactNative from '@microblink/blinkcard-react-native';
+import * as ImagePicker from 'react-native-image-picker';
+
 import {
     AppRegistry,
     Platform,
@@ -18,9 +20,9 @@ import {
 
 const licenseKey = Platform.select({
     // iOS license key for applicationID: com.microblink.sample
-    ios: 'sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTURnMk9EWTNOalE0TURZc0lrTnlaV0YwWldSR2IzSWlPaUkwT1RabFpEQXpaUzAwT0RBeExUUXpZV1F0WVRrMU5DMDBNemMyWlRObU9UTTVNR1FpZlE9Pc2TFqY01wri2M94Fe5sCUOx4F7K3M5TXqNAAJZWrZrJijNfC57WBNQMo7GkQo9Fp6zemUCuWlW0XGzB0RqVzCG1Y8aztpnim/cOYMPi5xoqZm3O3DeSkjmH6qUIyg==',
+    ios: 'sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUBbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRJMU5qTTFNamMyT1RJc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9PT1biknodonmIfXGRoRgDcJJ6XiWcxCFSE8flLOXwEKYwSUjWVAHSwI7GtA+oqJke90M+2giHY4Qqpeh67vsyoYHEyqCI8E6G47yBZxcIN/A7CFQq4IvMF4U7xaE1S4=',
     // android license key for applicationID: com.microblink.sample
-    android: 'sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTURnMk9EWTNPRGcwT1Rrc0lrTnlaV0YwWldSR2IzSWlPaUkwT1RabFpEQXpaUzAwT0RBeExUUXpZV1F0WVRrMU5DMDBNemMyWlRObU9UTTVNR1FpZlE9PUwdDoL/tBLmwfbOm3/dmw5DjLaYtTz1AGwI1162GlPEct+8fJxPBysGwVZ/8KX0Ygxi7NeroVHPM6IDNhCkmUMDHqELYqH3nK8xm8FPaTjCcN53o3B40SKVLm1Quw=='
+    android: 'sRwCABVjb20ubWljcm9ibGluay5zYW1wbGUAbGV5SkRjbVZoZEdWa1QyNGlPakUzTVRJMU5qTTFOVEEzTlRJc0lrTnlaV0YwWldSR2IzSWlPaUprWkdRd05qWmxaaTAxT0RJekxUUXdNRGd0T1RRNE1DMDFORFU0WWpBeFlUVTJZamdpZlE9Pd63oOMBm0mx/s+0dSOmd4EjsCAoD20P5kOz3xHBmd7BA5bmfN0Ij+Z2ou413GAVLEXtho9QFh9a6VmW32NKZRv+lMG5XGSnij6oVB5I1x3IWED8kluJsVZxFnm9I1U='
 })
 
 
@@ -71,6 +73,7 @@ export default class Sample extends Component {
         };
     }
 
+    /* BlinkCard scanning with the camera */
     async scan() {
         try {
             var blinkCardRecognizer = new BlinkCardReactNative.BlinkCardRecognizer();
@@ -107,9 +110,138 @@ export default class Sample extends Component {
                 this.setState(newState);
             }
         } catch (error) {
-            console.log(error);
             this.setState({ showFirstImageDocument: false, resultFirstImageDocument: '', showSecondImageDocument: false, resultSecondImageDocument: '', results: 'Scanning has been cancelled'});
         }
+    }
+
+    /* BlinkCard scanning with DirectAPI that requires both card images.
+    Best used for getting the information from both front and backside information from various cards */
+    async directApiTwoSides() {
+        try {
+            // Get the side of the card where the card number is located and return it in the Base64 format
+            let frontImage = await this.pickImage();
+            // Get the other side of the card and return it in the Base64 format
+            let backImage = await this.pickImage();
+            
+            var blinkCardRecognizer = new BlinkCardReactNative.BlinkCardRecognizer();
+            blinkCardRecognizer.returnFullDocumentImage = true;
+
+            // Pass the recogizer along with the license and the Base64 images to the DirectAPI method of processing
+            // If all of the information on the card is present on one side of the card, the image can be passed in the 'frontImage' parameter
+            // and 'backImage' parameter can be passed as null or empty string ""
+            const scanningResults = await BlinkCardReactNative.BlinkCard.scanWithDirectApi(
+                new BlinkCardReactNative.RecognizerCollection([blinkCardRecognizer]),
+                frontImage,
+                backImage,
+                licenseKey
+            );
+    
+            if (scanningResults) {
+                let newState = {
+                    showFirstImageDocument: false,
+                    resultFirstImageDocument: '',
+                    showSecondImageDocument: false,
+                    resultSecondImageDocument: '',
+                    results: ''
+                };
+
+                for (let i = 0; i < scanningResults.length; ++i) {
+                    let localState = this.handleResult(scanningResults[i]);
+                    newState.showFirstImageDocument = newState.showFirstImageDocument || localState.showFirstImageDocument;
+                    if (localState.showFirstImageDocument) {
+                        newState.resultFirstImageDocument = localState.resultFirstImageDocument;
+                    }
+                    newState.showSecondImageDocument = newState.showSecondImageDocument || localState.showSecondImageDocument;
+                    if (localState.showSecondImageDocument) {
+                        newState.resultSecondImageDocument = localState.resultSecondImageDocument;
+                    }
+                    newState.results += localState.results;
+                }
+                newState.results += '\n';
+                this.setState(newState);
+            }
+        } catch (error) {
+            this.setState({ showFrontImageDocument: false, resultFrontImageDocument: '', showBackImageDocument: false, resultBackImageDocument: '', showImageFace: false, resultImageFace: '', results: error, showSuccessFrame: false,
+            successFrame: ''});
+        }
+    }
+
+    /* BlinkCard scanning with DirectAPI that requires one card image.
+    Best used for cards that have all of the information on one side, or if the needed information is on one side */
+    async directApiOneSide() {
+        try {
+            // Get the side of the card where the card number is located and return it in the Base64 format
+            let image = await this.pickImage();
+            
+            var blinkCardRecognizer = new BlinkCardReactNative.BlinkCardRecognizer();
+            blinkCardRecognizer.returnFullDocumentImage = true;
+            blinkCardRecognizer.extractCvv = false;
+            blinkCardRecognizer.extractIban = false;
+            blinkCardRecognizer.extractExpiryDate = false;
+
+            // Pass the recogizer along with the license and the Base64 image to the DirectAPI method of processing
+            const scanningResults = await BlinkCardReactNative.BlinkCard.scanWithDirectApi(
+                new BlinkCardReactNative.RecognizerCollection([blinkCardRecognizer]),
+                image,
+                null,
+                licenseKey
+            );
+    
+            if (scanningResults) {
+                let newState = {
+                    showFirstImageDocument: false,
+                    resultFirstImageDocument: '',
+                    showSecondImageDocument: false,
+                    resultSecondImageDocument: '',
+                    results: ''
+                };
+
+                for (let i = 0; i < scanningResults.length; ++i) {
+                    let localState = this.handleResult(scanningResults[i]);
+                    newState.showFirstImageDocument = newState.showFirstImageDocument || localState.showFirstImageDocument;
+                    if (localState.showFirstImageDocument) {
+                        newState.resultFirstImageDocument = localState.resultFirstImageDocument;
+                    }
+                    newState.showSecondImageDocument = newState.showSecondImageDocument || localState.showSecondImageDocument;
+                    if (localState.showSecondImageDocument) {
+                        newState.resultSecondImageDocument = localState.resultSecondImageDocument;
+                    }
+                    newState.results += localState.results;
+                }
+                newState.results += '\n';
+                this.setState(newState);
+            }
+        } catch (error) {
+            this.setState({ showFrontImageDocument: false, resultFrontImageDocument: '', showBackImageDocument: false, resultBackImageDocument: '', showImageFace: false, resultImageFace: '', results: error, showSuccessFrame: false,
+            successFrame: ''});
+        }
+    }
+
+    /* A helper method for handling the picked card image */
+    async pickImage() {
+        return new Promise((resolve, reject) => {
+            ImagePicker.launchImageLibrary({
+                mediaType: 'photo',
+                includeBase64: true,
+            }, response => {
+                if (response.didCancel) {
+                    reject('Image selection canceled');
+                } else if (response.error) {
+                    reject(response.error);
+                } else {
+                    if (response.assets && response.assets.length > 0) {
+                        const base64Data = response.assets[0].base64;
+                        if (base64Data) {
+                            resolve(base64Data);
+                        } else {
+                            reject('Base64 data not found in response');
+                        }
+                    } else {
+                        reject('No assets found in response');
+                    }
+                }
+            });
+        });
     }
 
     handleResult(result) {
@@ -161,7 +293,17 @@ export default class Sample extends Component {
             <View style={styles.buttonContainer}>
             <Button
                 onPress={this.scan.bind(this)}
-                title="Scan"
+                title="Scan with camera"
+                color="#48B2E8"
+            />
+            <Button
+                onPress={this.directApiTwoSides.bind(this)} 
+                title="DirectAPI two side scanning"
+                color="#48B2E8"
+            />
+            <Button
+                onPress={this.directApiOneSide.bind(this)} 
+                title="DirectAPI one side scanning"
                 color="#48B2E8"
             />
             </View>
@@ -190,38 +332,44 @@ export default class Sample extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: '#F5FCFF'
-  },
-  label: {
-    fontSize: 30,
-    textAlign: 'center',
-    marginTop: 50
-  },
-  buttonContainer: {
-    margin: 20
-  },
-  imageContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  results: {
-    fontSize: 16,
-    textAlign: 'left',
-    margin: 10,
-  },
-  imageResult: {
-    flex: 1,
-    flexShrink: 1,
-    height: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10
-  },
-});
+    container: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'stretch',
+      backgroundColor: 'white'
+    },
+    label: {
+      fontSize: 30,
+      textAlign: 'center',
+      marginTop: 50,
+      color: "black"
+    },
+    buttonContainer: {
+      margin: 20,
+      marginTop: 20,
+      marginBottom: 20,
+      marginTop: 20,
+      gap: 20,
+    },
+    imageContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center'
+    },
+    results: {
+      fontSize: 16,
+      textAlign: 'left',
+      margin: 10,
+      color: 'black'
+    },
+    imageResult: {
+      flex: 1,
+      flexShrink: 1,
+      height: 200,
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: 10
+    },
+  });
 
 AppRegistry.registerComponent('Sample', () => Sample);
