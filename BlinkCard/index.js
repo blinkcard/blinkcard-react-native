@@ -37,10 +37,12 @@ const BlinkCardNative = Platform.select({
  * 
  * -> 'scanWithDirectApi' takes the following parameters:
  * 1. RecognizerCollection recognizerCollection: object containing recognizers to use for scanning
- * 2. String frontImage: a string in base64 format that contains an image of the front side of the document
- * 3. String backImage: a string in base64 format that contains an image of the front side of the document
- *     - backImage parameter is optional with the singleside recognizer, as only one side of the document is required.
- * 4. String license: BlinkID base64 license key bound to application ID for Android or iOS. To obtain
+ * 2. String frontImage: a Base64 format string that represents the image of the card where the card number is located that will be used for processing with DirectAPI
+ * 3. String backImage: a Base64 format string that represents the second side of the card that will be used for processing with DirectAPI
+ *          - backImage parameter is optional for cards that have all of the information located on one side, or if the BlinkCardRecognizer information extraction 
+ *            settings, that are enabled, are located only on one side of the card
+ *          - Pass 'null' or an empty string "" for this parameter in this case
+ * 4. String license: BlinkCard base64 license key bound to application ID for Android or iOS. To obtain
  *                       valid license key, please visit http://microblink.com/login or
  *                       contact us at http://help.microblink.com
  *
