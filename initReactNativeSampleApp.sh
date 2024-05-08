@@ -19,7 +19,7 @@ if [ "$IS_LOCAL_BUILD" = true ]; then
   # use directly source code from this repo instead of npm package
   # from RN 0.57 symlink does not work any more
   npm pack $blink_card_plugin_path
-  npm install --save microblink-blinkcard-react-native-2.9.0.tgz
+  npm install --save microblink-blinkcard-react-native-2.9.1.tgz
   #pushd node_modules
     #ln -s $blinkcard_plugin_path blinkcard-react-native
   #popd

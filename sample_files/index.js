@@ -137,32 +137,41 @@ export default class Sample extends Component {
             );
     
             if (scanningResults) {
-                let newState = {
-                    showFirstImageDocument: false,
-                    resultFirstImageDocument: '',
-                    showSecondImageDocument: false,
-                    resultSecondImageDocument: '',
-                    results: ''
-                };
-
-                for (let i = 0; i < scanningResults.length; ++i) {
-                    let localState = this.handleResult(scanningResults[i]);
-                    newState.showFirstImageDocument = newState.showFirstImageDocument || localState.showFirstImageDocument;
-                    if (localState.showFirstImageDocument) {
-                        newState.resultFirstImageDocument = localState.resultFirstImageDocument;
+                if (scanningResults.length == 0) {
+                    this.setState({
+                        showFirstImageDocument: false,
+                        resultFrontImageDocument: '',
+                        showBackImageDocument: false,
+                        resultBackImageDocument: '',
+                        results: 'Could not extract the information from the images!'
+                    })
+                } else {
+                    let newState = {
+                        showFirstImageDocument: false,
+                        resultFirstImageDocument: '',
+                        showSecondImageDocument: false,
+                        resultSecondImageDocument: '',
+                        results: ''
+                    };
+    
+                    for (let i = 0; i < scanningResults.length; ++i) {
+                        let localState = this.handleResult(scanningResults[i]);
+                        newState.showFirstImageDocument = newState.showFirstImageDocument || localState.showFirstImageDocument;
+                        if (localState.showFirstImageDocument) {
+                            newState.resultFirstImageDocument = localState.resultFirstImageDocument;
+                        }
+                        newState.showSecondImageDocument = newState.showSecondImageDocument || localState.showSecondImageDocument;
+                        if (localState.showSecondImageDocument) {
+                            newState.resultSecondImageDocument = localState.resultSecondImageDocument;
+                        }
+                        newState.results += localState.results;
                     }
-                    newState.showSecondImageDocument = newState.showSecondImageDocument || localState.showSecondImageDocument;
-                    if (localState.showSecondImageDocument) {
-                        newState.resultSecondImageDocument = localState.resultSecondImageDocument;
-                    }
-                    newState.results += localState.results;
+                    newState.results += '\n';
+                    this.setState(newState);
                 }
-                newState.results += '\n';
-                this.setState(newState);
             }
         } catch (error) {
-            this.setState({ showFrontImageDocument: false, resultFrontImageDocument: '', showBackImageDocument: false, resultBackImageDocument: '', showImageFace: false, resultImageFace: '', results: error, showSuccessFrame: false,
-            successFrame: ''});
+            this.setState({ showFirstImageDocument: false, resultFirstImageDocument: '', showSecondImageDocument: false, resultSecondImageDocument: '', results: error.toString()});
         }
     }
 
@@ -188,32 +197,41 @@ export default class Sample extends Component {
             );
     
             if (scanningResults) {
-                let newState = {
-                    showFirstImageDocument: false,
-                    resultFirstImageDocument: '',
-                    showSecondImageDocument: false,
-                    resultSecondImageDocument: '',
-                    results: ''
-                };
-
-                for (let i = 0; i < scanningResults.length; ++i) {
-                    let localState = this.handleResult(scanningResults[i]);
-                    newState.showFirstImageDocument = newState.showFirstImageDocument || localState.showFirstImageDocument;
-                    if (localState.showFirstImageDocument) {
-                        newState.resultFirstImageDocument = localState.resultFirstImageDocument;
+                if (scanningResults.length == 0) {
+                    this.setState({
+                        showFirstImageDocument: false,
+                        resultFrontImageDocument: '',
+                        showBackImageDocument: false,
+                        resultBackImageDocument: '',
+                        results: 'Could not extract the information from the image!'
+                    })
+                } else {
+                    let newState = {
+                        showFirstImageDocument: false,
+                        resultFirstImageDocument: '',
+                        showSecondImageDocument: false,
+                        resultSecondImageDocument: '',
+                        results: ''
+                    };
+    
+                    for (let i = 0; i < scanningResults.length; ++i) {
+                        let localState = this.handleResult(scanningResults[i]);
+                        newState.showFirstImageDocument = newState.showFirstImageDocument || localState.showFirstImageDocument;
+                        if (localState.showFirstImageDocument) {
+                            newState.resultFirstImageDocument = localState.resultFirstImageDocument;
+                        }
+                        newState.showSecondImageDocument = newState.showSecondImageDocument || localState.showSecondImageDocument;
+                        if (localState.showSecondImageDocument) {
+                            newState.resultSecondImageDocument = localState.resultSecondImageDocument;
+                        }
+                        newState.results += localState.results;
                     }
-                    newState.showSecondImageDocument = newState.showSecondImageDocument || localState.showSecondImageDocument;
-                    if (localState.showSecondImageDocument) {
-                        newState.resultSecondImageDocument = localState.resultSecondImageDocument;
-                    }
-                    newState.results += localState.results;
+                    newState.results += '\n';
+                    this.setState(newState);
                 }
-                newState.results += '\n';
-                this.setState(newState);
             }
         } catch (error) {
-            this.setState({ showFrontImageDocument: false, resultFrontImageDocument: '', showBackImageDocument: false, resultBackImageDocument: '', showImageFace: false, resultImageFace: '', results: error, showSuccessFrame: false,
-            successFrame: ''});
+            this.setState({ showFirstImageDocument: false, resultFirstImageDocument: '', showSecondImageDocument: false, resultSecondImageDocument: '', results: error.toString()});
         }
     }
 
