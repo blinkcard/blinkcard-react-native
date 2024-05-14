@@ -19,7 +19,7 @@ if [ "$IS_LOCAL_BUILD" = true ]; then
   # use directly source code from this repo instead of npm package
   # from RN 0.57 symlink does not work any more
   npm pack $blink_card_plugin_path
-  npm install --save microblink-blinkcard-react-native-2.9.0.tgz
+  npm install --save microblink-blinkcard-react-native-2.9.1.tgz
   #pushd node_modules
     #ln -s $blinkcard_plugin_path blinkcard-react-native
   #popd
@@ -28,6 +28,9 @@ else
   echo "Downloading blinkcard-react-native module"
   npm install --save @microblink/blinkcard-react-native
 fi
+
+# react-native-image-picker plugin needed only for sample application with DirectAPI to get the card images
+npm install react-native-image-picker
 
 # Auto-linking is done in 0.6 versions
 
@@ -38,7 +41,7 @@ pushd android || exit 1
 perl -i~ -pe "BEGIN{$/ = undef;} s/maven \{/maven \{ url 'https:\\/\\/maven.microblink.com' }\n        maven {/" build.gradle
 
 # change package name
-# adb uninstall "com.microblink.sample" 
+# adb uninstall "com.microblink.sample"
 mkdir -p app/src/main/java/com/microblink/sample
 mkdir -p app/src/debug/java/com/microblink/sample
 mv app/src/main/java/com/sample/* app/src/main/java/com/microblink/sample/
@@ -54,20 +57,21 @@ popd
 # enter into ios project folder
 pushd ios || exit 1
 
-#Force minimal iOS version
-sed -i '' "s/platform :ios, min_ios_version_supported/platform :ios, '13.0'/" Podfile
+  #Force minimal iOS version
+  sed -i '' "s/platform :ios, min_ios_version_supported/platform :ios, '13.0'/" Podfile
 
 # install pod
 pod install
 
-#if [ "$IS_LOCAL_BUILD" = true ]; then
-#  echo "Replace pod with custom dev version of BlinkCard framework"
-#  # replace pod with custom dev version of BlinkCard framework
-#  pushd Pods/MBBlinkCard || exit 1
-#  rm -rf BlinkCard.xcframework
-#  cp -r ~/Downloads/blinkcard-ios/BlinkCard.xcframework ./
-#  popd
-#fi
+# if [ "$IS_LOCAL_BUILD" = true ]; then
+  # echo "Replace pod with custom dev version of BlinkID framework"
+  # replace pod with custom dev version of BlinkID framework
+  # pushd Pods/PPBlinkID || exit 1
+  # rm -rf Microblink.bundle
+  # rm -rf Microblink.framework
+  # cp -r ~/Downloads/blinkid-ios/Microblink.framework ./
+  # popd
+# fi
 
 # change bundle id
 sed -i '' s/\$\(PRODUCT_BUNDLE_IDENTIFIER\)/com.microblink.sample/g $appName/Info.plist
@@ -96,12 +100,12 @@ cp index.js index.ios.js
 cp index.js index.android.js
 
 #update compile and target sdk versions to 31, add android:exported="true" to manifest
-sed -i '' 's#compileSdkVersion = 29#compileSdkVersion = 31#g' ./android/build.gradle
-sed -i '' 's#targetSdkVersion = 29#targetSdkVersion = 31#g' ./android/build.gradle
+sed -i '' 's#compileSdkVersion = 29#compileSdkVersion = 34#g' ./android/build.gradle
+sed -i '' 's#targetSdkVersion = 29#targetSdkVersion = 34#g' ./android/build.gradle
 
 # return to root folder
 popd
 
 echo "Go to React Native project folder: cd $appName"
-echo "To run on Android execute: react-native run-android"
-echo "To run on iOS: go to $appName/ios and open $appName.xcworkspace; set your development team and add Privacy - Camera Usage Description key to Your info.plist file and press run"
+echo "To run on Android execute: npx react-native run-android"
+echo "To run on iOS: open $appName/ios/$appName.xcworkspace; set your development team; add Privacy - Camera Usage Description and Privacy - Photo Library Usage Description keys to your info.plist file and press run"
