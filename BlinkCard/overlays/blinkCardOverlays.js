@@ -1,5 +1,7 @@
 import { OverlaySettings } from '../overlaySettings'
-
+import { AndroidCameraResolutionPreset, 
+        iOSCameraResolutionPreset
+    } from '../types'
 /**
  * Class for setting up BlinkCard overlay.
  * BlinkCard overlay is best suited for scanning payment cards.
@@ -73,5 +75,26 @@ export class BlinkCardOverlaySettings extends OverlaySettings {
         * example: "US" to use "en_US" on Android and en-US on iOS
         */
         this.country = null;
+
+        /**
+         * Defines possible iOS device camera video resolution preset.
+         * 
+         * Default: PresetOptimal
+         */
+        this.iOSCameraResolutionPreset = iOSCameraResolutionPreset.PresetOptimal;
+
+        /**
+        * Defines possible Android device camera video resolution preset.
+        * 
+        * Default: PresetDefault
+        */
+        this.androidCameraResolutionPreset = AndroidCameraResolutionPreset.PresetDefault;
+
+        /**
+        * Option to set whether legacy camera API should be used even on Lollipop devices that support newer Camera2 API.
+        * 
+        * Default: false
+        */
+        this.enableAndroidLegacyCameraApi = false;
     }
 }

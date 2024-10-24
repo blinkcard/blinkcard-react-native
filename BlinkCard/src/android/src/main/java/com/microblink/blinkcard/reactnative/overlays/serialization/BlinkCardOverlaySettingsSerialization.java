@@ -8,6 +8,8 @@ import com.microblink.blinkcard.fragment.overlay.blinkcard.reticleui.BlinkCardRe
 import com.microblink.blinkcard.reactnative.overlays.OverlaySettingsSerialization;
 import com.microblink.blinkcard.uisettings.BlinkCardUISettings;
 import com.microblink.blinkcard.uisettings.UISettings;
+import com.microblink.blinkcard.hardware.camera.VideoResolutionPreset;
+import com.microblink.blinkcard.uisettings.CameraSettings;
 
 public final class BlinkCardOverlaySettingsSerialization implements OverlaySettingsSerialization {
     @Override
@@ -57,6 +59,21 @@ public final class BlinkCardOverlaySettingsSerialization implements OverlaySetti
         if (errorCardTooCloseToEdge != null) {
             overlayStringsBuilder.setErrorCardTooCloseToEdge(errorCardTooCloseToEdge);
         }
+
+        VideoResolutionPreset videoResolutionPreset = VideoResolutionPreset.values()[0];
+        if (jsonUISettings.hasKey("androidCameraResolutionPreset")) {
+            videoResolutionPreset = VideoResolutionPreset.values()[jsonUISettings.getInt("androidCameraResolutionPreset")];
+        }
+
+        Boolean androidLegacyCameraApi = false;
+        if (jsonUISettings.hasKey("enableAndroidLegacyCameraApi")) {
+            androidLegacyCameraApi = jsonUISettings.getBoolean("enableAndroidLegacyCameraApi");
+        }
+
+        settings.setCameraSettings(new CameraSettings.Builder()
+                .setVideoResolutionPreset(videoResolutionPreset)
+                .setForceLegacyApi(androidLegacyCameraApi)
+                .build());
         
         settings.setStrings(overlayStringsBuilder.build());
         return settings;
