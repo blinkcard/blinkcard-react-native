@@ -102,6 +102,13 @@
             sett.onboardingButtonTooltipDelay = [onboardingButtonTooltipDelay doubleValue] / 1000.0;
         }
     }
+    
+    {
+        id iOSCameraResolutionPreset = [jsonOverlaySettings valueForKey: @"iOSCameraResolutionPreset"];
+        if (iOSCameraResolutionPreset != nil) {
+            sett.cameraSettings.cameraPreset = [iOSCameraResolutionPreset integerValue];
+        }
+    }
 
     return [[MBCBlinkCardOverlayViewController alloc] initWithSettings:sett recognizerCollection:recognizerCollection delegate:self];
 }
