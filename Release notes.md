@@ -1,3 +1,9 @@
+## 2.10.1
+
+- Added missing camera presets for both Android and iOS camera settings.
+- iOS-specific
+    - Switched the modal presentation style to full screen.
+
 ## 2.10.0
 
 - Updated to [Android SDK v2.10.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.10.0) and [iOS SDK v2.10.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.10.0)
