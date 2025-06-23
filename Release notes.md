@@ -1,3 +1,15 @@
+## 2.11.0
+- Updated to [Android SDK v2.11.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.11.0) and [iOS SDK v2.11.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.11.0)
+
+### Improvements
+- Improved data extraction accuracy across all supported card types
+
+### UI changes
+- Added success checkmark after a successful first side scan
+- Added an error state when scanning the wrong side of the card
+    - Added new `scanningWrongSideMessage` property in the `BlinkCardOverlaySettings`.
+- Minor changes in scanning instruction messages 
+
 ## 2.10.1
 
 - Added missing camera presets for both Android and iOS camera settings.
