@@ -81,6 +81,13 @@
             sett.errorDocumentTooCloseToEdge = (NSString *)errorCardTooCloseToEdge;
         }
     }
+
+    {
+        id scanningWrongSideMessage = [jsonOverlaySettings valueForKey:@"scanningWrongSideMessage"];
+        if (scanningWrongSideMessage != nil) {
+            sett.scanningWrongSideMessage = (NSString *)scanningWrongSideMessage;
+        }
+    }
     
     {
         id showOnboardingInfo = [jsonOverlaySettings valueForKey:@"showOnboardingInfo"];

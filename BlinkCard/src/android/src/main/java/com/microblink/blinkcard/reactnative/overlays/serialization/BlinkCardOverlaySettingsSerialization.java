@@ -59,6 +59,10 @@ public final class BlinkCardOverlaySettingsSerialization implements OverlaySetti
         if (errorCardTooCloseToEdge != null) {
             overlayStringsBuilder.setErrorCardTooCloseToEdge(errorCardTooCloseToEdge);
         }
+        String scanningWrongSideMessage = getStringFromMap(jsonUISettings, "scanningWrongSideMessage");
+        if (scanningWrongSideMessage != null) {
+            overlayStringsBuilder.setErrorScanningWrongSide(scanningWrongSideMessage);
+        }
         
         VideoResolutionPreset videoResolutionPreset = VideoResolutionPreset.values()[0];
         if (jsonUISettings.hasKey("androidCameraResolutionPreset")) {

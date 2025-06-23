@@ -46,6 +46,12 @@ export class BlinkCardOverlaySettings extends OverlaySettings {
         */
         this.errorCardTooCloseToEdge = null;
         /**
+        * String: Instructions for the user when wrong side is being scanned.
+        * 
+        * If null, default value will be used.
+        */
+        this.scanningWrongSideMessage = null;
+        /**
         * Defines whether button for presenting onboarding screens will be present on screen
         * 
         * Default: true
@@ -75,21 +81,18 @@ export class BlinkCardOverlaySettings extends OverlaySettings {
         * example: "US" to use "en_US" on Android and en-US on iOS
         */
         this.country = null;
-
         /**
          * Defines possible iOS device camera video resolution preset.
          * 
          * Default: PresetOptimal
          */
         this.iOSCameraResolutionPreset = iOSCameraResolutionPreset.PresetOptimal;
-
         /**
         * Defines possible Android device camera video resolution preset.
         * 
         * Default: PresetDefault
         */
         this.androidCameraResolutionPreset = AndroidCameraResolutionPreset.PresetDefault;
-
         /**
         * Option to set whether legacy camera API should be used even on Lollipop devices that support newer Camera2 API.
         * 
