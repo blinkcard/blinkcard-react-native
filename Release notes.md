@@ -1,3 +1,11 @@
+## 2.11.1
+- Updated to [Android SDK v2.11.1](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.11.1) and [iOS SDK v2.11.1](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.11.1)
+
+### Behavior Changes
+- Improved extraction of the owner field
+- Only digits are allowed in card number, CVV, and date of expiry results
+- Only letters are allowed in owner field result
+
 ## 2.11.0
 - Updated to [Android SDK v2.11.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.11.0) and [iOS SDK v2.11.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.11.0)
 
