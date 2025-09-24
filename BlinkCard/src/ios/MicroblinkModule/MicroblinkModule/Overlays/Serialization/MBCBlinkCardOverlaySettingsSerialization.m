@@ -88,6 +88,13 @@
             sett.scanningWrongSideMessage = (NSString *)scanningWrongSideMessage;
         }
     }
+
+    {
+        id keepCardParallelMessage = [jsonOverlaySettings valueForKey:@"keepCardParallelMessage"];
+        if (keepCardParallelMessage != nil) {
+            sett.keepCardParallelMessage = (NSString *)keepCardParallelMessage;
+        }
+    }
     
     {
         id showOnboardingInfo = [jsonOverlaySettings valueForKey:@"showOnboardingInfo"];
