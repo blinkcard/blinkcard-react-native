@@ -56,6 +56,9 @@ public final class BlinkCardRecognizerSerialization implements RecognizerSeriali
         if (jsonMap.hasKey("screenAnalysisMatchLevel")) {
             recognizer.setScreenAnalysisMatchLevel(BlinkCardSerializationUtils.deserializeMatchLevel(jsonMap.getInt("screenAnalysisMatchLevel")));
         }
+        if(jsonMap.hasKey("tiltDetectionLevel")) {
+            recognizer.setTiltDetectionLevel(BlinkCardSerializationUtils.deserializeDetectionLevel(jsonMap.getInt("tiltDetectionLevel")));
+        }
         return recognizer;
     }
 
