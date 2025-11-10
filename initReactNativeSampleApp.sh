@@ -1,19 +1,29 @@
 #!/bin/bash
 
 blink_card_plugin_path=`pwd`/BlinkCard
-appName=Sample
+appName=BlinkCardSample
+appId=com.microblink.sample
+rn_version="0.82.0"
 
 # remove any existing code
 rm -rf $appName
 
 # create a sample application
 # https://github.com/react-native-community/cli#using-npx-recommended
-npx @react-native-community/cli init $appName --version="0.75" || exit 1
+npx @react-native-community/cli init $appName --package-name $appId --title "BlinkCard React-Native Sample" --version "$rn_version" || exit 1
 
 # enter into demo project folder
 pushd $appName || exit 1
 
-IS_LOCAL_BUILD=false || exit 1
+# Inject esModuleInterop into tsconfig.json
+# Add "esModuleInterop": true into compilerOptions in tsconfig.json
+sed -i '' '/"compilerOptions": {/a\
+\    "esModuleInterop": true,\
+\    "allowSyntheticDefaultImports": true,\
+\    "skipLibCheck": true,
+' tsconfig.json
+
+IS_LOCAL_BUILD=true || exit 1
 if [ "$IS_LOCAL_BUILD" = true ]; then
   echo "Using blinkcard-react-native from this repo instead from NPM"
   # use directly source code from this repo instead of npm package
@@ -32,28 +42,6 @@ fi
 # react-native-image-picker plugin needed only for sample application with DirectAPI to get the card images
 npm install react-native-image-picker
 
-# Auto-linking is done in 0.6 versions
-
-# enter into android project folder
-pushd android || exit 1
-
-# patch the build.gradle to add "maven { url https://maven.microblink.com }"" repository
-perl -i~ -pe "BEGIN{$/ = undef;} s/maven \{/maven \{ url 'https:\\/\\/maven.microblink.com' }\n        maven {/" build.gradle
-
-# change package name
-# adb uninstall "com.microblink.sample"
-mkdir -p app/src/main/java/com/microblink/sample
-mkdir -p app/src/debug/java/com/microblink/sample
-mv app/src/main/java/com/sample/* app/src/main/java/com/microblink/sample/
-mv app/src/debug/java/com/sample/* app/src/debug/java/com/microblink/sample/
-rmdir app/src/main/java/com/sample
-rmdir app/src/debug/java/com/sample
-grep -rl com.sample . | xargs sed -i '' s/com.sample/com.microblink.sample/g
-./gradlew clean
-
-# return from android project folder
-popd
-
 # enter into ios project folder
 pushd ios || exit 1
 
@@ -70,8 +58,14 @@ pod install
   # popd
 # fi
 
-# change bundle id
-sed -i '' s/\$\(PRODUCT_BUNDLE_IDENTIFIER\)/com.microblink.sample/g $appName/Info.plist
+# Add the camera and photo usage descriptions into Info.plist to enable camera scanning and the image upload via gallery
+sed -i '' '/<dict>/a\
+  <key>NSCameraUsageDescription</key>\
+  <string>Enable the camera usage for BlinkCard default UX scanning</string>\
+  <key>NSPhotoLibraryUsageDescription</key>\
+  <string>Enable photo gallery usage for BlinkCard DirectAPI scanning</string>\
+' $appName/Info.plist
+
 
 #Disable Flipper since it spams console with errors
 export NO_FLIPPER=1
@@ -99,6 +93,19 @@ cp index.js index.android.js
 # return to root folder
 popd
 
-echo "Go to React Native project folder: cd $appName"
-echo "To run on Android execute: npx react-native run-android"
-echo "To run on iOS: open $appName/ios/$appName.xcworkspace; set your development team; add Privacy - Camera Usage Description and Privacy - Photo Library Usage Description keys to your info.plist file and press run"
+echo "
+Instruction for running the $appName sample application:
+ 
+Go to the React Native project folder: cd $appName
+
+----- Android instructions -----
+
+Execute: npx react-native run-android
+
+----- iOS instructions -----
+
+1. Execute npx react-native start
+2. Open $appName/ios/$appName.xcworkspace
+3. Set your development team
+4. Press run
+"
