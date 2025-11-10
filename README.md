@@ -22,7 +22,7 @@ Once the validation is complete, you can continue using the SDK in offline mode 
 
 ## React Native Version
 
-BlinkCard React Native was built and tested with [React Native v0.64.0](https://github.com/facebook/react-native/releases/tag/v0.64.0)
+BlinkCard React Native was built and tested with [React Native v0.82](https://github.com/facebook/react-native/releases/tag/v0.82.0)
 
 ## Installation
 
