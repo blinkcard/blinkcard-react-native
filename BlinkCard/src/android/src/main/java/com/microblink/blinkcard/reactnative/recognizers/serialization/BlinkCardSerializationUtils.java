@@ -1,5 +1,6 @@
 package com.microblink.blinkcard.reactnative.recognizers.serialization;
 
+import com.microblink.blinkcard.entities.recognizers.blinkcard.DetectionLevel;
 import com.microblink.blinkcard.reactnative.SerializationUtils;
 
 import com.microblink.blinkcard.entities.recognizers.blinkcard.BlinkCardAnonymizationMode;
@@ -56,7 +57,6 @@ public abstract class BlinkCardSerializationUtils {
             return jsonDocumentLivenessCheckResult;
         }
 
-    public static MatchLevel deserializeMatchLevel(int value) {
-            return MatchLevel.values()[value];
-     }
+    public static MatchLevel deserializeMatchLevel(int value) { return MatchLevel.values()[value]; }
+    public static DetectionLevel deserializeDetectionLevel(int value) { return DetectionLevel.values()[value]; }
 }

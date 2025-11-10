@@ -1,7 +1,8 @@
 import { OverlaySettings } from '../overlaySettings'
-import { AndroidCameraResolutionPreset, 
-        iOSCameraResolutionPreset
-    } from '../types'
+import {
+    AndroidCameraResolutionPreset,
+    iOSCameraResolutionPreset
+} from '../types'
 /**
  * Class for setting up BlinkCard overlay.
  * BlinkCard overlay is best suited for scanning payment cards.
@@ -51,6 +52,12 @@ export class BlinkCardOverlaySettings extends OverlaySettings {
         * If null, default value will be used.
         */
         this.scanningWrongSideMessage = null;
+        /**
+         * String: Instructions for the user when too much tilt is detected.
+         * 
+         * If null, default value will be used.
+         */
+        this.keepCardParallelMessage = null;
         /**
         * Defines whether button for presenting onboarding screens will be present on screen
         * 

@@ -3,7 +3,8 @@
  * https://github.com/BlinkCard/blinkcard-react-native
  */
 
-import React, { Component } from 'react';
+import { Component } from 'react';
+import { name as appName } from './app.json';
 import * as BlinkCardReactNative from '@microblink/blinkcard-react-native';
 import * as ImagePicker from 'react-native-image-picker';
 
@@ -26,10 +27,10 @@ const licenseKey = Platform.select({
 })
 
 
-var renderIf = function(condition, content) {
+var renderIf = function (condition, content) {
     if (condition) {
         return content;
-    } 
+    }
     return null;
 }
 
@@ -110,7 +111,7 @@ export default class Sample extends Component {
                 this.setState(newState);
             }
         } catch (error) {
-            this.setState({ showFirstImageDocument: false, resultFirstImageDocument: '', showSecondImageDocument: false, resultSecondImageDocument: '', results: 'Scanning has been cancelled'});
+            this.setState({ showFirstImageDocument: false, resultFirstImageDocument: '', showSecondImageDocument: false, resultSecondImageDocument: '', results: 'Scanning has been cancelled' });
         }
     }
 
@@ -122,7 +123,7 @@ export default class Sample extends Component {
             let frontImage = await this.pickImage();
             // Get the other side of the card and return it in the Base64 format
             let backImage = await this.pickImage();
-            
+
             var blinkCardRecognizer = new BlinkCardReactNative.BlinkCardRecognizer();
             blinkCardRecognizer.returnFullDocumentImage = true;
 
@@ -135,7 +136,7 @@ export default class Sample extends Component {
                 backImage,
                 licenseKey
             );
-    
+
             if (scanningResults) {
                 if (scanningResults.length == 0) {
                     this.setState({
@@ -153,7 +154,7 @@ export default class Sample extends Component {
                         resultSecondImageDocument: '',
                         results: ''
                     };
-    
+
                     for (let i = 0; i < scanningResults.length; ++i) {
                         let localState = this.handleResult(scanningResults[i]);
                         newState.showFirstImageDocument = newState.showFirstImageDocument || localState.showFirstImageDocument;
@@ -171,7 +172,7 @@ export default class Sample extends Component {
                 }
             }
         } catch (error) {
-            this.setState({ showFirstImageDocument: false, resultFirstImageDocument: '', showSecondImageDocument: false, resultSecondImageDocument: '', results: error.toString()});
+            this.setState({ showFirstImageDocument: false, resultFirstImageDocument: '', showSecondImageDocument: false, resultSecondImageDocument: '', results: error.toString() });
         }
     }
 
@@ -181,7 +182,7 @@ export default class Sample extends Component {
         try {
             // Get the side of the card where the card number is located and return it in the Base64 format
             let image = await this.pickImage();
-            
+
             var blinkCardRecognizer = new BlinkCardReactNative.BlinkCardRecognizer();
             blinkCardRecognizer.returnFullDocumentImage = true;
             blinkCardRecognizer.extractCvv = false;
@@ -195,7 +196,7 @@ export default class Sample extends Component {
                 null,
                 licenseKey
             );
-    
+
             if (scanningResults) {
                 if (scanningResults.length == 0) {
                     this.setState({
@@ -213,7 +214,7 @@ export default class Sample extends Component {
                         resultSecondImageDocument: '',
                         results: ''
                     };
-    
+
                     for (let i = 0; i < scanningResults.length; ++i) {
                         let localState = this.handleResult(scanningResults[i]);
                         newState.showFirstImageDocument = newState.showFirstImageDocument || localState.showFirstImageDocument;
@@ -231,7 +232,7 @@ export default class Sample extends Component {
                 }
             }
         } catch (error) {
-            this.setState({ showFirstImageDocument: false, resultFirstImageDocument: '', showSecondImageDocument: false, resultSecondImageDocument: '', results: error.toString()});
+            this.setState({ showFirstImageDocument: false, resultFirstImageDocument: '', showSecondImageDocument: false, resultSecondImageDocument: '', results: error.toString() });
         }
     }
 
@@ -275,15 +276,15 @@ export default class Sample extends Component {
             let blinkCardResult = result;
 
             let resultString =
-            buildResult(blinkCardResult.cardNumber, 'Card Number') +
-            buildResult(blinkCardResult.cardNumberPrefix, 'Card Number Prefix') +
-            buildResult(blinkCardResult.iban, 'IBAN') +
-            buildResult(blinkCardResult.cvv, 'CVV') +
-            buildResult(blinkCardResult.owner, 'Owner') +
-            buildResult(blinkCardResult.cardNumberValid.toString(), 'Card Number Valid') +
-            buildDateResult(blinkCardResult.expiryDate, 'Expiry date') +
-            buildLivenessResult(blinkCardResult.documentLivenessCheck.front, 'Front side liveness checks') +
-            buildLivenessResult(blinkCardResult.documentLivenessCheck.back, 'Back side liveness checks');
+                buildResult(blinkCardResult.cardNumber, 'Card Number') +
+                buildResult(blinkCardResult.cardNumberPrefix, 'Card Number Prefix') +
+                buildResult(blinkCardResult.iban, 'IBAN') +
+                buildResult(blinkCardResult.cvv, 'CVV') +
+                buildResult(blinkCardResult.owner, 'Owner') +
+                buildResult(blinkCardResult.cardNumberValid.toString(), 'Card Number Valid') +
+                buildDateResult(blinkCardResult.expiryDate, 'Expiry date') +
+                buildLivenessResult(blinkCardResult.documentLivenessCheck.front, 'Front side liveness checks') +
+                buildLivenessResult(blinkCardResult.documentLivenessCheck.back, 'Back side liveness checks');
 
             // there are other fields to extract
             localState.results += resultString;
@@ -306,88 +307,88 @@ export default class Sample extends Component {
         let displayBackImageDocument = this.state.resultSecondImageDocument;
         let displayFields = this.state.results;
         return (
-        <View style={styles.container}>
-            <Text style={styles.label}>BlinkCard</Text>
-            <View style={styles.buttonContainer}>
-            <Button
-                onPress={this.scan.bind(this)}
-                title="Scan with camera"
-                color="#48B2E8"
-            />
-            <Button
-                onPress={this.directApiTwoSides.bind(this)} 
-                title="DirectAPI two side scanning"
-                color="#48B2E8"
-            />
-            <Button
-                onPress={this.directApiOneSide.bind(this)} 
-                title="DirectAPI one side scanning"
-                color="#48B2E8"
-            />
+            <View style={styles.container}>
+                <Text style={styles.label}>BlinkCard</Text>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        onPress={this.scan.bind(this)}
+                        title="Scan with camera"
+                        color="#48B2E8"
+                    />
+                    <Button
+                        onPress={this.directApiTwoSides.bind(this)}
+                        title="DirectAPI two side scanning"
+                        color="#48B2E8"
+                    />
+                    <Button
+                        onPress={this.directApiOneSide.bind(this)}
+                        title="DirectAPI one side scanning"
+                        color="#48B2E8"
+                    />
+                </View>
+                <ScrollView
+                    automaticallyAdjustContentInsets={false}
+                    scrollEventThrottle={200} y>
+                    <Text style={styles.results}>{displayFields}</Text>
+                    {renderIf(this.state.showFirstImageDocument,
+                        <View style={styles.imageContainer}>
+                            <Image
+                                resizeMode='contain'
+                                source={{ uri: displayFrontImageDocument, scale: 3 }} style={styles.imageResult} />
+                        </View>
+                    )}
+                    {renderIf(this.state.showSecondImageDocument,
+                        <View style={styles.imageContainer}>
+                            <Image
+                                resizeMode='contain'
+                                source={{ uri: displayBackImageDocument, scale: 3 }} style={styles.imageResult} />
+                        </View>
+                    )}
+                </ScrollView>
             </View>
-            <ScrollView
-            automaticallyAdjustContentInsets={false}
-            scrollEventThrottle={200}y>
-            <Text style={styles.results}>{displayFields}</Text>
-            {renderIf(this.state.showFirstImageDocument,
-                <View style={styles.imageContainer}>
-                <Image
-                    resizeMode='contain'
-                    source={{uri: displayFrontImageDocument, scale: 3}} style={styles.imageResult}/>
-                </View>
-            )}
-            {renderIf(this.state.showSecondImageDocument,
-                <View style={styles.imageContainer}>
-                <Image
-                    resizeMode='contain'
-                    source={{uri: displayBackImageDocument, scale: 3}} style={styles.imageResult}/>
-                </View>
-            )}
-            </ScrollView>
-        </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'stretch',
-      backgroundColor: 'white'
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        backgroundColor: 'white'
     },
     label: {
-      fontSize: 30,
-      textAlign: 'center',
-      marginTop: 50,
-      color: "black"
+        fontSize: 30,
+        textAlign: 'center',
+        marginTop: 50,
+        color: "black"
     },
     buttonContainer: {
-      margin: 20,
-      marginTop: 20,
-      marginBottom: 20,
-      marginTop: 20,
-      gap: 20,
+        margin: 20,
+        marginTop: 20,
+        marginBottom: 20,
+        marginTop: 20,
+        gap: 20,
     },
     imageContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center'
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
     results: {
-      fontSize: 16,
-      textAlign: 'left',
-      margin: 10,
-      color: 'black'
+        fontSize: 16,
+        textAlign: 'left',
+        margin: 10,
+        color: 'black'
     },
     imageResult: {
-      flex: 1,
-      flexShrink: 1,
-      height: 200,
-      alignItems: 'center',
-      justifyContent: 'center',
-      margin: 10
+        flex: 1,
+        flexShrink: 1,
+        height: 200,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 10
     },
-  });
+});
 
-AppRegistry.registerComponent('Sample', () => Sample);
+AppRegistry.registerComponent(appName, () => Sample);

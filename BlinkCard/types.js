@@ -47,17 +47,17 @@ export class Quadrilateral {
 /**
  * Defines possible Android device camera video resolution preset 
  */
-export const AndroidCameraResolutionPreset = Object.freeze (
+export const AndroidCameraResolutionPreset = Object.freeze(
     {
         /** Will choose camera video resolution which is best for current device */
         PresetDefault: 0,
 
         /** Attempts to choose camera video resolution as closely as 480p */
         Preset480p: 1,
-    
+
         /** Attempts to choose camera video resolution as closely as 720p */
         Preset720p: 2,
-    
+
         /** Attempts to choose camera video resolution as closely as 1080p */
         Preset1080p: 3,
 
@@ -79,19 +79,19 @@ export const iOSCameraResolutionPreset = Object.freeze(
 
         /** 720p video will always be used */
         Preset720p: 1,
-            
+
         /** 1080p video will always be used */
         Preset1080p: 2,
-            
+
         /** 4K video will always be used */
         Preset4K: 3,
-        
+
         /** The library will calculate optimal resolution based on the use case and device used */
         PresetOptimal: 4,
-        
+
         /** Device's maximal video resolution will be used */
         PresetMax: 5,
-        
+
         /** Device's photo preview resolution will be used */
         PresetPhoto: 6
     }
@@ -171,7 +171,7 @@ export const BlinkCardMatchLevel = Object.freeze(
         Level1: 1,
         /** Match level two */
         Level2: 2,
-        /** Match level three */        
+        /** Match level three */
         Level3: 3,
         /** Match level four */
         Level4: 4,
@@ -187,6 +187,21 @@ export const BlinkCardMatchLevel = Object.freeze(
         Level9: 9,
         /** Match level ten. Most strict match level */
         Level10: 10
+    }
+);
+
+/**
+ * Represents the different levels of detection sensitivity.
+ */
+export const BlinkCardDetectionLevel = Object.freeze(
+    {
+        Off: 0,
+
+        Low: 1,
+
+        Mid: 2,
+
+        High: 3,
     }
 );
 
@@ -277,10 +292,10 @@ export class ImageExtensionFactors {
 export const DataMatchState = Object.freeze(
     {
         /** Data matching has not been performed. */
-        NotPerformed : 0,
+        NotPerformed: 0,
         /** Data does not match. */
-        Failed : 1,
+        Failed: 1,
         /** Data match. */
-        Success : 2
+        Success: 2
     }
 );
