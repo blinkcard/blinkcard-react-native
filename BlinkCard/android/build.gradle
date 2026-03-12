@@ -1,9 +1,9 @@
 buildscript {
-  ext.BlinkcardReactNativeReactNative = [
-    kotlinVersion: "2.0.21",
+  ext.BlinkCardReactNative = [
+    kotlinVersion: "2.1.0",
     minSdkVersion: 24,
-    compileSdkVersion: 36,
-    targetSdkVersion: 36
+    compileSdkVersion: 35,
+    targetSdkVersion: 35
   ]
 
   ext.getExtOrDefault = { prop ->
@@ -11,7 +11,7 @@ buildscript {
       return rootProject.ext.get(prop)
     }
 
-    return BlinkcardReactNativeReactNative[prop]
+    return BlinkCardReactNative[prop]
   }
 
   repositories {
@@ -20,7 +20,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:8.7.2"
+    classpath "com.android.tools.build:gradle:8.9.1"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
   }
@@ -33,7 +33,7 @@ apply plugin: "kotlin-android"
 apply plugin: "com.facebook.react"
 
 android {
-  namespace "com.blinkcardreactnativereactnative"
+  namespace "com.microblink.blinkcard.reactnative"
 
   compileSdkVersion getExtOrDefault("compileSdkVersion")
 
@@ -64,4 +64,11 @@ android {
 
 dependencies {
   implementation "com.facebook.react:react-android"
+  implementation("com.microblink:blinkcard-ux:3000.0.1")
+}
+
+react {
+  jsRootDir = file("../src/")
+  libraryName = "BlinkCardReactNative"
+  codegenJavaPackageName = "com.microblink.blinkcard.reactnative"
 }
