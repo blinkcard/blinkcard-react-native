@@ -1,3 +1,80 @@
+## 3000.0.0
+
+Version 3000.0.0 of the BlinkCard React Native SDK.
+
+- Updated to [Android SDK v3000.0.1](https://github.com/blinkcard/blinkcard-android/releases/tag/v3000.0.1) and [iOS SDK v3000.0.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v3000.0.0)
+
+## Breaking changes
+- The plugin now requires:
+    - iOS version 16.0 and above.
+    - Android API version 24 and above.
+
+- The plugin was built and tested with [React Native v0.82.1](https://github.com/facebook/react-native/releases/tag/v0.81.0)
+    - It is built as a Turbo module, but it also contains support for the legacy architecture (Native module).
+- BlinkCard v3000 is now fully written in TypeScript for improved type safety and developer experience.
+
+**Changes in TypeScript**
+- Method `scanWithCamera` has been renamed to `performScan`.
+- Method `scanWithDirectApi` has been renamed to `performDirectApiScan`.
+
+- Many of the older settings have been renamed to be more intuitive, for more information see the [blinkCardSettings.ts](https://github.com/BlinkCard/blinkcard-react-native/blob/main/BlinkCard/src/blinkCardSettings.ts) file, and the native documentation for [Android](https://blinkcard.github.io/blinkcard-android/blinkcard-core/index.html) and [iOS](https://blinkcard.github.io/blinkcard-swift-package/documentation/blinkcard).
+- See section **Version 3000 plugin usage** for more details about how to use each method, and how to handle the scanned results.
+- See section **Implementation guide** for more details about the implementation steps required to integrate the new BlinkCard SDK.
+
+## Version 3000 plugin usage
+**Scanning with default BlinkCard UI/UX**
+
+The `performScan` method launches the BlinkCard scanning process with the default UX properties.\
+It takes the following parameters: 
+1. BlinkCard SDK settings
+2. BlinkCard Session settings
+3. The optional BlinkCard scanning UX settings
+
+**BlinkCard SDK Settings** - `BlinkCardSdkSettings`: the class that contains all of the available SDK settings. It contains settings for the license key, and how the models (that the SDK needs for the scanning process) should be obtained.
+
+**BlinkCard Session Settings** - `BlinkCardSessionSettings`: the class that contains specific scanning configurations that define how the scanning session should behave.
+
+**BlinkCard Scanning UX settings** - `ScanningUxSettings` - the optional class that allows customization of various aspects of the UI used during the scanning process.
+
+- The implementation of the `performScan` method can be viewed here in the [index.tsx](https://github.com/BlinkCard/blinkcard-react-native/blob/main/BlinkCard/src/index.tsx) file.
+
+**Scanning information from static images**
+
+The `performDirectApiScan` method launches the BlinkCard scanning process intended for information extraction from static images.\
+It takes the following parameters: 
+1. BlinkCard SDK settings
+2. BlinkCard Session settings
+3. The first side image string in the Base64 format
+4. The optional second side image string in the Base64 format
+
+**BlinkCard SDK Settings** - `BlinkCardSdkSettings`: the class that contains all of the available SDK settings. It contains settings for the license key, and how the models (that the SDK needs for the scanning process) should be obtained.
+
+**BlinkCard Session Settings** - `BlinkCardSessionSettings`: the class that contains specific scanning configurations that define how the scanning session should behave.
+
+The first image Base64 string - `string`: image that represents one side of the card. 
+- This image must contain the card side where the card number (PAN) is located. 
+- If this side of the card contains all of the neccessary information (e.g. CVV, cardholder name) that were set in the `ExtractionSettings`, then no second image is required.
+
+The optional second image Base64 string - `string?`: image that represents one side of the card.
+- Required only if not all information specified in `ExtractionSettings` can be obtained from the first side of the card.
+
+- The implementation of the `performDirectApiScan` method can be viewed here in the [index.tsx](https://github.com/BlinkCard/blinkcard-react-native/blob/main/BlinkCard/src/index.tsx) file.
+
+**SDK loading and unloading**
+
+The BlinkCard SDK now also contains methods for loading and unloading. These methods can be called before the scanning methods described above to preload the required resources and reduce the startup time of a scanning session. They can also be used to release resources after the scanning session has finished.
+- See the [SDK loading & unloading](https://github.com/blinkcard/blinkcard-react-native?tab=readme-ov-file#sdk-loading--unloading) section in README.md for more information.
+
+**BlinkCard result**
+
+- Both methods return the `BlinkCardScanningResult` object. It contains the results of scanning a card, including the extracted data, liveness information, and the card images:
+
+- All of the available results can be viewed [here](https://github.com/BlinkCard/blinkcard-react-native/blob/main/BlinkCard/src/blinkCardResult.ts).
+
+**Implementation guide**
+- A detailed guide about the integration and usage of the plugin can be viewed [here](https://github.com/BlinkCard/blinkcard-react-native/tree/main?tab=readme-ov-file#plugin-integration).
+- The sample application which demonstrates the usage of the SDK can be found in the [App.tsx](https://github.com/BlinkCard/blinkcard-react-native/blob/main/sample_files/App.tsx) file.
+
 ## 2.12.0
 - Updated to [Android SDK v2.12.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.12.0) and [iOS SDK v2.12.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.12.0)
 
