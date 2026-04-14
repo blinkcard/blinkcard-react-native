@@ -2,7 +2,7 @@
 
 Version 3000.0.0 of the BlinkCard React Native SDK.
 
-- Updated to [Android SDK v3000.0.1](https://github.com/blinkcard/blinkcard-android/releases/tag/v3000.0.1) and [iOS SDK v3000.0.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v3000.0.0)
+- Updated to [Android SDK v3000.0.1](https://github.com/microblink/blinkcard-android/releases/tag/v3000.0.1) and [iOS SDK v3000.0.0](https://github.com/microblink/blinkcard-ios/releases/tag/v3000.0.0)
 
 ## Breaking changes
 - The plugin now requires:
@@ -17,7 +17,7 @@ Version 3000.0.0 of the BlinkCard React Native SDK.
 - Method `scanWithCamera` has been renamed to `performScan`.
 - Method `scanWithDirectApi` has been renamed to `performDirectApiScan`.
 
-- Many of the older settings have been renamed to be more intuitive, for more information see the [blinkCardSettings.ts](https://github.com/BlinkCard/blinkcard-react-native/blob/main/BlinkCard/src/blinkCardSettings.ts) file, and the native documentation for [Android](https://blinkcard.github.io/blinkcard-android/blinkcard-core/index.html) and [iOS](https://blinkcard.github.io/blinkcard-swift-package/documentation/blinkcard).
+- Many of the older settings have been renamed to be more intuitive, for more information see the [blinkCardSettings.ts](https://github.com/microblink/blinkcard-react-native/blob/main/BlinkCard/src/blinkCardSettings.ts) file, and the native documentation for [Android](https://blinkcard.github.io/blinkcard-android/blinkcard-core/index.html) and [iOS](https://blinkcard.github.io/blinkcard-swift-package/documentation/blinkcard).
 - See section **Version 3000 plugin usage** for more details about how to use each method, and how to handle the scanned results.
 - See section **Implementation guide** for more details about the implementation steps required to integrate the new BlinkCard SDK.
 
@@ -36,7 +36,7 @@ It takes the following parameters:
 
 **BlinkCard Scanning UX settings** - `ScanningUxSettings` - the optional class that allows customization of various aspects of the UI used during the scanning process.
 
-- The implementation of the `performScan` method can be viewed here in the [index.tsx](https://github.com/BlinkCard/blinkcard-react-native/blob/main/BlinkCard/src/index.tsx) file.
+- The implementation of the `performScan` method can be viewed here in the [index.tsx](https://github.com/microblink/blinkcard-react-native/blob/main/BlinkCard/src/index.tsx) file.
 
 **Scanning information from static images**
 
@@ -58,25 +58,25 @@ The first image Base64 string - `string`: image that represents one side of the 
 The optional second image Base64 string - `string?`: image that represents one side of the card.
 - Required only if not all information specified in `ExtractionSettings` can be obtained from the first side of the card.
 
-- The implementation of the `performDirectApiScan` method can be viewed here in the [index.tsx](https://github.com/BlinkCard/blinkcard-react-native/blob/main/BlinkCard/src/index.tsx) file.
+- The implementation of the `performDirectApiScan` method can be viewed here in the [index.tsx](https://github.com/microblink/blinkcard-react-native/blob/main/BlinkCard/src/index.tsx) file.
 
 **SDK loading and unloading**
 
 The BlinkCard SDK now also contains methods for loading and unloading. These methods can be called before the scanning methods described above to preload the required resources and reduce the startup time of a scanning session. They can also be used to release resources after the scanning session has finished.
-- See the [SDK loading & unloading](https://github.com/blinkcard/blinkcard-react-native?tab=readme-ov-file#sdk-loading--unloading) section in README.md for more information.
+- See the [SDK loading & unloading](https://github.com/microblink/blinkcard-react-native?tab=readme-ov-file#sdk-loading--unloading) section in README.md for more information.
 
 **BlinkCard result**
 
 - Both methods return the `BlinkCardScanningResult` object. It contains the results of scanning a card, including the extracted data, liveness information, and the card images:
 
-- All of the available results can be viewed [here](https://github.com/BlinkCard/blinkcard-react-native/blob/main/BlinkCard/src/blinkCardResult.ts).
+- All of the available results can be viewed [here](https://github.com/microblink/blinkcard-react-native/blob/main/BlinkCard/src/blinkCardResult.ts).
 
 **Implementation guide**
-- A detailed guide about the integration and usage of the plugin can be viewed [here](https://github.com/BlinkCard/blinkcard-react-native/tree/main?tab=readme-ov-file#plugin-integration).
-- The sample application which demonstrates the usage of the SDK can be found in the [App.tsx](https://github.com/BlinkCard/blinkcard-react-native/blob/main/sample_files/App.tsx) file.
+- A detailed guide about the integration and usage of the plugin can be viewed [here](https://github.com/microblink/blinkcard-react-native/tree/main?tab=readme-ov-file#plugin-integration).
+- The sample application which demonstrates the usage of the SDK can be found in the [App.tsx](https://github.com/microblink/blinkcard-react-native/blob/main/sample_files/App.tsx) file.
 
 ## 2.12.0
-- Updated to [Android SDK v2.12.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.12.0) and [iOS SDK v2.12.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.12.0)
+- Updated to [Android SDK v2.12.0](https://github.com/microblink/blinkcard-android/releases/tag/v2.12.0) and [iOS SDK v2.12.0](https://github.com/microblink/blinkcard-ios/releases/tag/v2.12.0)
 
 ### Improvements
 - Integrated a tilt detector that will improve the quality of captured images and the extracted data
@@ -92,7 +92,7 @@ The BlinkCard SDK now also contains methods for loading and unloading. These met
 - Fixed issue with images when extension are enabled that resulted in an incorrect aspect ratio
 
 ## 2.11.1
-- Updated to [Android SDK v2.11.1](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.11.1) and [iOS SDK v2.11.1](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.11.1)
+- Updated to [Android SDK v2.11.1](https://github.com/microblink/blinkcard-android/releases/tag/v2.11.1) and [iOS SDK v2.11.1](https://github.com/microblink/blinkcard-ios/releases/tag/v2.11.1)
 
 ### Behavior Changes
 - Improved extraction of the owner field
@@ -100,7 +100,7 @@ The BlinkCard SDK now also contains methods for loading and unloading. These met
 - Only letters are allowed in owner field result
 
 ## 2.11.0
-- Updated to [Android SDK v2.11.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.11.0) and [iOS SDK v2.11.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.11.0)
+- Updated to [Android SDK v2.11.0](https://github.com/microblink/blinkcard-android/releases/tag/v2.11.0) and [iOS SDK v2.11.0](https://github.com/microblink/blinkcard-ios/releases/tag/v2.11.0)
 
 ### Improvements
 - Improved data extraction accuracy across all supported card types
@@ -119,7 +119,7 @@ The BlinkCard SDK now also contains methods for loading and unloading. These met
 
 ## 2.10.0
 
-- Updated to [Android SDK v2.10.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.10.0) and [iOS SDK v2.10.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.10.0)
+- Updated to [Android SDK v2.10.0](https://github.com/microblink/blinkcard-android/releases/tag/v2.10.0) and [iOS SDK v2.10.0](https://github.com/microblink/blinkcard-ios/releases/tag/v2.10.0)
 
 **Improvements**
 
@@ -134,7 +134,7 @@ The BlinkCard SDK now also contains methods for loading and unloading. These met
     
 ## 2.9.1
 
-- Updated the plugin to [Android SDK v2.9.3](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.9.3) and [iOS SDK v2.9.1](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.9.1)
+- Updated the plugin to [Android SDK v2.9.3](https://github.com/microblink/blinkcard-android/releases/tag/v2.9.3) and [iOS SDK v2.9.1](https://github.com/microblink/blinkcard-ios/releases/tag/v2.9.1)
 - This version of the SDK contains the native iOS BlinkCard.xcframework with the privacy manifest file (`PrivacyInfo.xcprivacy`).
 
 ### Major API update
@@ -147,13 +147,13 @@ The BlinkCard SDK now also contains methods for loading and unloading. These met
     - `backImage`,  which would represent the image of the second side of the card in the Base64 format string
         - the `backImage` parameter is optional when scanning the card that contains all of the information on one side (or if you extract specific information located only on one side), and can be passed as `null` or an empty string (`””`). 
     - `license`, the licenses for iOS and Android required to unlock the SDK
-- An example of its usage can be found in the [sample application](https://github.com/blinkcard/blinkcard-react-native/blob/main/sample_files/index.js) , both for the two-sided and one-sided card scanning. 
-- More information about the DirectAPI scanning can be found here in the native documentation for [Android](https://github.com/BlinkCard/blinkcard-android?tab=readme-ov-file#direct-api) and [iOS](https://github.com/BlinkCard/blinkcard-ios?tab=readme-ov-file#direct-api-processing)
+- An example of its usage can be found in the [sample application](https://github.com/microblink/blinkcard-react-native/blob/main/sample_files/index.js) , both for the two-sided and one-sided card scanning. 
+- More information about the DirectAPI scanning can be found here in the native documentation for [Android](https://github.com/microblink/blinkcard-android?tab=readme-ov-file#direct-api) and [iOS](https://github.com/microblink/blinkcard-ios?tab=readme-ov-file#direct-api-processing)
 - We still recommend using direct camera scanning, as static images can sometimes be in lower-quality which can cause SDK extraction error. It would be best to use the scanWithDirectApi method when using the device’s camera is not an option.
 
 ## 2.9.0
 
-- Updated the plugin to [Android SDK v2.9.0](https://github.com/blinkcard/blinkcard-android/releases/tag/v2.9.0) and [iOS SDK v2.9.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.9.0)
+- Updated the plugin to [Android SDK v2.9.0](https://github.com/microblink/blinkcard-android/releases/tag/v2.9.0) and [iOS SDK v2.9.0](https://github.com/microblink/blinkcard-ios/releases/tag/v2.9.0)
 - Improved scanning performance and added support for virtually any card layout
 - Added new result `documentLivenessCheck` that contains liveness information for the first and second sides of the scanned card.
     - `handPresenceCheck` , `photocopyCheck` and `screenCheck` liveness information can be obtained.
@@ -169,7 +169,7 @@ The BlinkCard SDK now also contains methods for loading and unloading. These met
 
 ## 2.6.0
 
-- Updated to [Android SDK v2.6.0](https://github.com/BlinkCard/blinkcard-android/releases/tag/v2.6.0) and [iOS SDK v2.6.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.6.0)
+- Updated to [Android SDK v2.6.0](https://github.com/microblink/blinkcard-android/releases/tag/v2.6.0) and [iOS SDK v2.6.0](https://github.com/microblink/blinkcard-ios/releases/tag/v2.6.0)
 
 ## 2.4.1
 
@@ -178,8 +178,8 @@ The BlinkCard SDK now also contains methods for loading and unloading. These met
 
 ## 2.4.0
 
-- Updated to [Android SDK v2.4.0](https://github.com/BlinkCard/blinkcard-android/releases/tag/v2.4.0) and [iOS SDK v2.4.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.4.0)
+- Updated to [Android SDK v2.4.0](https://github.com/microblink/blinkcard-android/releases/tag/v2.4.0) and [iOS SDK v2.4.0](https://github.com/microblink/blinkcard-ios/releases/tag/v2.4.0)
 
 ## 2.3.0
 
-Initial plugin release with [Android SDK v2.3.0](https://github.com/BlinkCard/blinkcard-android/releases/tag/v2.3.0) and [iOS SDK v2.3.0](https://github.com/BlinkCard/blinkcard-ios/releases/tag/v2.3.0)
+Initial plugin release with [Android SDK v2.3.0](https://github.com/microblink/blinkcard-android/releases/tag/v2.3.0) and [iOS SDK v2.3.0](https://github.com/microblink/blinkcard-ios/releases/tag/v2.3.0)
