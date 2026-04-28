@@ -42,7 +42,7 @@ if [ "$IS_LOCAL_BUILD" = true ]; then
 else
   # Download BlinkCard React Native via NPM
   echo "Downloading blinkcard-react-native module"
-  npm i --save @microblink/blinkcar-react-native
+  npm i --save @microblink/blinkcard-react-native
 fi
 
 # React-native-image-picker plugin needed only for sample application with DirectAPI to get the document images
@@ -62,6 +62,9 @@ pushd ios || exit 1
 
 # Force minimal iOS version
 sed -i '' "s/platform :ios, min_ios_version_supported/platform :ios, '16.0'/" Podfile
+
+# Fix for fmt consteval error in Xcode 16 / newer Clang
+perl -i~ -pe "BEGIN{$/ = undef;} s/(react_native_post_install\([^)]+\))/\1\n\n    # Fix for fmt consteval error in Xcode 16 \/ newer Clang\n    installer.pods_project.targets.each do |target|\n      if target.name == 'fmt'\n        target.build_configurations.each do |config|\n          config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++17'\n        end\n      end\n    end/s" Podfile
 
 # Add the camera and photo usage descriptions into Info.plist to enable camera scanning and the image upload via gallery
 sed -i '' '/<dict>/a\

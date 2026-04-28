@@ -85,7 +85,7 @@ export default function App() {
        * Create and modify the liveness settings
        */
       const livenessSettings = new LivenessSettings();
-      livenessSettings.enableCardHelpInHandCheck = true;
+      livenessSettings.enableCardHeldInHandCheck = true;
       livenessSettings.photocopyCheckStrictnessLevel = StrictnessLevel.Level5;
 
       /**
@@ -224,7 +224,7 @@ export default function App() {
        * Create and modify the liveness settings
        */
       const livenessSettings = new LivenessSettings();
-      livenessSettings.enableCardHelpInHandCheck = true;
+      livenessSettings.enableCardHeldInHandCheck = true;
       livenessSettings.photocopyCheckStrictnessLevel = StrictnessLevel.Level5;
 
       /**
@@ -334,7 +334,7 @@ export default function App() {
        * Create and modify the liveness settings
        */
       const livenessSettings = new LivenessSettings();
-      livenessSettings.enableCardHelpInHandCheck = true;
+      livenessSettings.enableCardHeldInHandCheck = true;
       livenessSettings.photocopyCheckStrictnessLevel = StrictnessLevel.Level5;
 
       /**
