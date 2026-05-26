@@ -14,6 +14,10 @@ However, since the wrapper is open source, you can add the features you need on 
 - [Licensing](#licensing)
 - [Requirements](#requirements)
 - [Quickstart with the sample application](#quickstart-with-the-sample-application)
+  - [Android sample application](#android-sample-application)
+    - [On an emulator](#on-an-emulator)
+    - [On a physical device via USB](#on-a-physical-device-via-usb)
+  - [iOS sample application](#ios-sample-application)
 - [Plugin integration](#plugin-integration)
 - [Plugin usage](#plugin-usage)
 - [Plugin specifics](#plugin-specifics)
@@ -72,19 +76,49 @@ cd blinkcard-react-native && ./initBlinkCardReactNativeSample.sh
 
 **Running the sample application on Android**
 
-For running the sample application on Android, execute the following command:
+## <a name="android-sample-application"></a> Android sample application
+
+### <a name="on-an-emulator"></a> On an emulator:
+
+Simply execute the following command:
+
+```bash
+npx react-native start
+```
+
+Then in another terminal, run:
 
 ```bash
 npx react-native run-android
 ```
 
-**Note:** the plugin can be run directly via Android Studio as well:
+**Alternative: Run directly via Android Studio:**
 
 1. Execute the following command:
 ```bash
 npx react-native start
 ```
 2. Open the `android` folder via Android Studio in the `BlinkCardSample` folder to run the Android sample application.
+
+### <a name="on-a-physical-device-via-usb"></a> On a physical device via USB:
+
+1. Connect your device via USB and enable USB debugging in Developer Options.
+2. Forward the Metro bundler port:
+```bash
+adb reverse tcp:8081 tcp:8081
+```
+3. Start Metro in one terminal:
+```bash
+npx react-native start
+```
+4. In another terminal, build and run on the device:
+```bash
+npx react-native run-android
+```
+
+or open it in Android Studio and run it on the physical device from there.
+
+## <a name="ios-sample-application"></a> iOS sample application
 
 **Running the sample application on iOS**
 
